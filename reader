@@ -1,0 +1,11 @@
+入口方法
+
+ip:127.0.0.1
+
+入口为   http://127.0.0.1?controller=index&method=index
+
+添加cookie后进入方法   首先获取cookie下的usercode值
+如果为空跳转auth
+
+
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx96475c9ad190e02b&redirect_uri=http%3a%2f%2fzhx.soho-software.cn%2fhtml%2ftest.html&response_type=code&scope=SCOPE&state=index,index#wechat_redirect

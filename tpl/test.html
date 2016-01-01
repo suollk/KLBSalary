@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<p>{$articletitle}</p>
+<p>{$arr1.title}</p>
+<p>{$arr1.author}</p>
+<p>{$arr1['title']}</p>
+<p>{$arr1['author']}</p>
+//首字母大写
+<p>{$articletitle|capitalize}</p>
+//字符串拼接
+<p>{$articletitle|cat:" juice."}</p>
+//UNIX时间戳格式化
+<p>{$timenow}</p>
+<p>{$timenow|date_format}</p>
+<p>{$timenow|date_format:"%Y-%b-%D %H:%M:%S"}</p>
+//执行函数
+<p>{"Y-m-d"|date:$timenow}</p>
+<p>{"a"|str_replace:"h":$articletitle}</p>
+//自定义函数  参数名自定义
+<p>{f_sumstr p1='你好' p2='还不错'}</p>
+//空变量附带默认值
+<p>{$nulltype|default:"there is nothing"}</p>
+<p>{$dasdadasdas|default:"there is nothing"}</p>
+//网址转码
+<p>{$myurl|escape:"url"}</p>
+//大写小写转换
+<p>{$articletitle|upper}</p>
+<p>{$articletitle|lower}</p>
+//将换行符变换成html换行br/
+<p>{$articletitle|nl2br}</p>
+//二维数组遍历
+<p>
+{section name=roundnum loop=$arr2}
+    {$arr2[roundnum].title}
+    {$arr2[roundnum].author}
+    {$arr2[roundnum].content}
+    <br/>
+{sectionelse}
+当前没有文章
+{/section}
+{foreach item=arr from=$arr2}
+    {$arr.title}
+    {$arr.author}
+    {$arr.content}
+<br/>
+{foreachelse}
+当前没有文章
+{/foreach}
+{foreach $arr2 as $item}
+    {$item.title}
+    {$item.author}
+    {$item.content}
+    <br/>
+{foreachelse}
+    当前没有文章
+{/foreach}
+</p>
+    //判断语句
+    <p>{if $score gt 90}
+        优秀
+        {elseif $score gt 60}
+        良好
+        {else}
+        差评
+        {/if}
+</p>
+//执行对象的方法
+<p>{$myobj->meth1(array('苹果','熟了'))}</p>
+//调用插件的方法
+{test width=150 height=200}
+//调用插件调节方法
+{$timenow|test:"Y-m-d H:i:s"}
+<br/>
+//block插件使用方法
+{test2 replace='true' maxnum=29}
+{$str}
+{/test2}
+</body>
+</html>
