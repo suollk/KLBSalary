@@ -7,13 +7,13 @@
  */
 
 class CACHEFILE{
-    public static $cachefile;
+    public static $cache;
 
     public static function init(){
-        self::$cachefile =new cachefile;
+        self::$cache =new cache;
     }
 
     public static function cacheData($key, $value = '', $cacheTime = 0){
-        return self::$cachefile->cacheData($key, $value, $cacheTime);
+        return self::$cache->cacheData($key, $value, $cacheTime);
     }
 }

@@ -6,6 +6,14 @@
  * Time: 14:14
  */
 
+function jumpurl($url){
+//    跳转网页
+    echo "<script language=\"javascript\">";
+    echo "document.location=\"".$url."\"";
+    echo "</script>";
+    exit;
+}
+
 function getCurl($url){//get https的内容
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL,$url);

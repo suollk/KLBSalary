@@ -8,7 +8,7 @@
  * 此函数只管调用   不管如何使用
  */
 
-class weixinurl{
+class weixinfunction{
     private $corpid;
     private $corpsecret;
     private $weixinurl;
@@ -26,7 +26,7 @@ class weixinurl{
         return $resultArr;
     }
 
-    function setdefault($weixinconfigArr){
+    function init($weixinconfigArr){
         $this->weixinurl=$weixinconfigArr["weixinurl"];
         $this->corpid=$weixinconfigArr["corpid"];
         $this->corpsecret=$weixinconfigArr["corpsecret"];
@@ -41,13 +41,20 @@ class weixinurl{
         $url = $this->weixinurl."/cgi-bin/gettoken?corpid="
               .$this->corpid."&corpsecret=". $this->corpsecret;
 
-        return geturlinfoback($url);
+        return $this->geturlinfoback($url);
     }
 
     function getuseridbycode($code){
-        $url = $this->weixinurl."//cgi-bin/user/getuserinfo?access_token="
+        $url = $this->weixinurl."/cgi-bin/user/getuserinfo?access_token="
             .$this->accesstoken."&code=".$code;
 
-        return geturlinfoback($url);
+        return $this->geturlinfoback($url);
+    }
+
+    function getuserinfobyuserid($userid){
+        $url = $this->weixinurl."/cgi-bin/user/get?access_token="
+            .$this->accesstoken."&userid=".$userid;
+
+        return $this->geturlinfoback($url);
     }
 }

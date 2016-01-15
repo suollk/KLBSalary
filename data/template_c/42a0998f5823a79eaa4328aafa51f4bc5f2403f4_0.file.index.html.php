@@ -1,3 +1,29 @@
+<?php /* Smarty version 3.1.27, created on 2016-01-08 03:06:51
+         compiled from "tpl\index.html" */ ?>
+<?php
+/*%%SmartyHeaderCode:11681568f19bb765019_58402508%%*/
+if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_valid = $_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    '42a0998f5823a79eaa4328aafa51f4bc5f2403f4' => 
+    array (
+      0 => 'tpl\\index.html',
+      1 => 1451742401,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '11681568f19bb765019_58402508',
+  'has_nocache_code' => false,
+  'version' => '3.1.27',
+  'unifunc' => 'content_568f19bb82d950_17166725',
+),false);
+/*/%%SmartyHeaderCode%%*/
+if ($_valid && !is_callable('content_568f19bb82d950_17166725')) {
+function content_568f19bb82d950_17166725 ($_smarty_tpl) {
+
+$_smarty_tpl->properties['nocache_hash'] = '11681568f19bb765019_58402508';
+?>
 <!DOCTYPE html>
 <html class="uk-height-1-1 uk-width-1-1">
 
@@ -29,7 +55,11 @@
 				</form>
 			</div>
 		</div>
-		<script type="text/javascript" src="tpl/js/require.js" data-main="tpl/js/index"></script>
+		<?php echo '<script'; ?>
+ type="text/javascript" src="tpl/js/require.js" data-main="tpl/js/index"><?php echo '</script'; ?>
+>
 	</body>
 
-</html>
+</html><?php }
+}
+?>

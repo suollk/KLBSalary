@@ -5,13 +5,13 @@
  * Date: 2015-12-31
  * Time: 14:06
  */
-class  cachefile{
+class  cache{
     private $_dir;
 
     const EXT = '.txt';
 
     public function __construct() {
-        $this->_dir = dirname(__FILE__) . '/data/cache/';
+        $this->_dir = realpath(dirname(__FILE__).'/../../../') . '/data/cache/';
     }
     public function cacheData($key, $value = '', $cacheTime = 0) {
         $filename = $this->_dir  . $key . self::EXT;

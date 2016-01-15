@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/uikit.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/components/form-advanced.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/components/sortable.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/components/upload.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/components/progress.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/components/notify.min.css" />
+		<style type="text/css">
+			.border {
+				border: 1px solid #E8E8E8;
+			}
+			
+			.borderblack {
+				border: 1px solid #BBBABA;
+			}
+			
+			.uk-form input[type=text] {
+				border: 1px solid #E8E8E8;
+			}
+			
+			#questionlist {
+				overflow-y: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="uk-width-5-6 uk-container-center">
+			<form class="uk-form">
+				<fieldset class="uk-margin-small-top" data-uk-margin="">
+					<legend>
+						<div class="uk-grid uk-margin-small-bottom" data-uk-grid-margin="">
+							<div class="uk-width-1-2">
+								<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="调查问卷标题">
+							</div>
+							<div class="uk-width-1-2">
+								<a class="uk-button uk-button-primary uk-border-rounded uk-width-1-1"><i class="uk-icon-plus-square"></i> 创建</a>
+							</div>
+						</div>
+					</legend>
+				</fieldset>
+				<div class="uk-width-1-1  uk-margin-small-top">
+					<div class="uk-width-1-6 uk-float-left">
+						<div class="uk-panel uk-panel-box border">
+							<h3 class="uk-panel-title">题目类型</h3>
+							<ul id="addquestionul" class="uk-nav uk-nav-side uk-nav-parent-icon" data-uk-nav="">
+								<li data-type="0"><a><i class="uk-icon-plus-square-o"></i> 单选题</a></li>
+								<li class="uk-nav-divider"></li>
+								<li data-type="1"><a><i class="uk-icon-plus-square-o"></i> 多选题</a></li>
+								<li class="uk-nav-divider"></li>
+								<li data-type="2"><a><i class="uk-icon-plus-square-o"></i> 问答题</a></li>
+								<li class="uk-nav-divider"></li>
+								<li data-type="3"><a><i class="uk-icon-plus-square-o"></i> 图片单选题</a></li>
+								<li class="uk-nav-divider"></li>
+								<li data-type="4"><a><i class="uk-icon-plus-square-o"></i> 图片多选题</a></li>
+								<li class="uk-nav-divider"></li>
+							</ul>
+						</div>
+					</div>
+					<div class="uk-width-4-5 uk-float-right">
+						<div id="questionlist" class="uk-panel uk-panel-box border">
+							<!--最外层的div-->
+							<div class="uk-panel uk-container-center">
+								<ul class="uk-sortable uk-grid" data-uk-sortable="{handleClass:'uk-sortable-handle'}">
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<script src="js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="js/uikit.min.js"></script>
+		<script type="text/javascript" src="js/jsviews.min.js"></script>
+		<script src="js/components/sortable.min.js"></script>
+		<script type="text/javascript" src="js/components/upload.min.js"></script>
+		<script type="text/javascript" src="js/components/notify.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$("#questionlist").innerHeight($(window).innerHeight() - $('#questionlist')[0].offsetTop - $(window).scrollTop() - 6);
+				$(window).resize(function() {
+					$("#questionlist").innerHeight($(window).innerHeight() - $('#questionlist')[0].offsetTop - $(window).scrollTop() - 6);
+				});
+				// randow4位数
+				function S4() {
+					return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+				};
+				// 创建GUID
+				function guid() {
+					return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+				};
+				//添加问题按钮
+				$("#addquestionul li").on("click", function() {
+					if (typeof($(this).attr("data-type")) == "undefined") {
+						return;
+					}
+					var uuid = guid();
+					var tempjson = '{"num":"' + $(".item").length + '","uuid":"' + uuid + '","questiontype":"' + $(this).attr("data-type") + '"}';
+					tempjson = JSON.parse(tempjson);
+					$.views.settings.allowCode = true;
+					switch ($(this).attr("data-type")) {
+						//单选
+						case "0":
+							$("#questionlist div ul").append($("#redioquestion").render(tempjson));
+							break;
+							//多选
+						case "1":
+							$("#questionlist div ul").append($("#checkboxquestion").render(tempjson));
+							break;
+							//问答
+						case "2":
+							$("#questionlist div ul").append($("#textareaquestion").render(tempjson));
+							break;
+							//图片单选	
+						case "3":
+							$("#questionlist div ul").append($("#oneimgquestion").render(tempjson));
+							resetimgupload();
+							break;
+							//图片多选
+						case "4":
+							$("#questionlist div ul").append($("#muiltimgquestion").render(tempjson));
+							resetimgupload();
+							break;
+						default:
+							break;
+					}
+					resetaukclose(uuid);
+					resetasuccess(uuid);
+					$('#questionlist').scrollTop($('#questionlist')[0].scrollHeight);
+				})
+
+				function aukcloseclick() {
+					if (typeof($(this).attr("data-type")) == "undefined") {
+						return;
+					}
+					switch ($(this).attr("data-type")) {
+						case "li":
+							$("#" + $(this).attr("data-id")).remove();;
+							break;
+						case "div":
+							$(this).parent().remove();
+							break;
+						default:
+							break;
+					}
+				}
+
+				function resetaukclose(uuid) {
+					$("#" + uuid + " a.uk-close").on("click", function() {
+						if (typeof($(this).attr("data-type")) == "undefined") {
+							return;
+						}
+						switch ($(this).attr("data-type")) {
+							case "li":
+								$("#" + $(this).attr("data-id")).remove();;
+								break;
+							case "div":
+								$(this).parent().remove();
+								break;
+							default:
+								break;
+						}
+					});
+				}
+
+				function resetasuccess(uuid) {
+					$("#" + uuid + " a.uk-button-success").on("click", function() {
+						if (typeof($(this).attr("data-id")) == "undefined") {
+							return;
+						}
+						var tempjson = '{"uuid":"' + $(this).attr("data-id") + '"}';
+						tempjson = JSON.parse(tempjson);
+						switch ($(this).attr("data-question")) {
+							case "0":
+								$("#" + $(this).attr("data-id") + "list").append($("#oneredioinput").render(tempjson));
+								break;
+							case "1":
+								$("#" + $(this).attr("data-id") + "list").append($("#onecheckboxnput").render(tempjson));
+								break;
+							default:
+								break;
+						}
+						resetaukclose($(this).attr("data-id") + "list");
+					})
+				}
+
+				function resetimgupload() {
+					var progressbar = $("#progressbar"),
+						bar = progressbar.find('.uk-progress-bar'),
+						settings = {
+							action: 'http://219.235.31.101/test.php', // 上传路径 url
+							allow: '*.(jpg|jpeg|gif|png)', // 只允许上传图片
+							single: false,
+							type: 'json',
+							loadstart: function() {
+								bar.css("width", "0%").text("0%");
+								progressbar.removeClass("uk-hidden");
+							},
+							progress: function(percent) {
+								percent = Math.ceil(percent);
+								bar.css("width", percent + "%").text(percent + "%");
+							},
+							allcomplete: function(response) {
+								bar.css("width", "100%").text("100%");
+								setTimeout(function() {
+									progressbar.addClass("uk-hidden");
+								}, 250);
+								console.log(response);
+							},
+							notallowed: function(file, settings) {
+								UIkit.notify({
+									message: "<i class='uk-icon-close'></i><br/>你上传的文件类型有误!只允许上传<br/>jpg|jpeg|gif|png",
+									status: 'warning',
+									timeout: 3000,
+									pos: 'top-center'
+								});
+							}
+						};
+					var select = UIkit.uploadSelect($("#upload-select"), settings),
+						drop = UIkit.uploadDrop($("#upload-drop"), settings);
+				}
+			});
+		</script>
+
+		<!--单选模版-->
+		<script id="redioquestion" type="text/x-jsrender">
+			<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}">
+				<div class="uk-width-1-1 borderblack  uk-magin-bottom">
+					<div class="uk-sortable-handle uk-margin-small-left">
+						<i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right">
+							Q{{:num}}
+					   </i>
+						<a href="javascript:;" data-id="{{:uuid}}" data-type="li" class="uk-close uk-close-alt uk-float-right uk-margin-right"></a>
+					</div>
+					<div id="{{:uuid}}list" class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
+						<legend>
+							<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="单选题目标题">
+						</legend>
+						<div class="uk-form-row">
+							<label>
+								<input type="radio" name="{{:uuid}}">
+								<input type="text" class="uk-border-rounded uk-width-4-5" placeholder="单选题目选项">
+							</label>
+							<a href="javascript:;" data-type="div" class="uk-close uk-close-alt uk-margin-small-left"></a>
+						</div>
+						<div class="uk-form-row">
+							<label>
+								<input type="radio" name="{{:uuid}}">
+								<input type="text" class="uk-border-rounded uk-width-4-5" placeholder="单选题目选项">
+							</label>
+							<a href="javascript:;" data-type="div" class="uk-close uk-close-alt uk-margin-small-left"></a>
+						</div>
+					</div>
+					<div class="uk-form-row uk-margin-left uk-margin-small-bottom">
+						<a data-id="{{:uuid}}" data-question="{{:questiontype}}" class="uk-button uk-button-success uk-border-rounded uk-width-1-2"><i class="uk-icon-plus"></i> 增加</a>
+					</div>
+				</div>
+			</li>
+		</script>
+		<!--多选模版-->
+		<script id="checkboxquestion" type="text/x-jsrender">
+			<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}">
+				<div class="uk-width-1-1 borderblack  uk-magin-bottom">
+					<div class="uk-sortable-handle uk-margin-small-left">
+						<i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right">
+							Q{{:num}}
+					   </i>
+						<a href="javascript:;" data-id="{{:uuid}}" data-type="li" class="uk-close uk-close-alt uk-float-right uk-margin-right"></a>
+					</div>
+					<div id="{{:uuid}}list" class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
+						<legend>
+							<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="多选题目标题">
+						</legend>
+						<div class="uk-form-row">
+							<label>
+								<input type="checkbox" name="{{:uuid}}">
+								<input type="text" class="uk-border-rounded uk-width-4-5" placeholder="多选题目选项">
+							</label>
+							<a href="javascript:;" data-type="div" class="uk-close uk-close-alt uk-margin-small-left"></a>
+						</div>
+						<div class="uk-form-row">
+							<label>
+								<input type="checkbox" name="{{:uuid}}">
+								<input type="text" class="uk-border-rounded uk-width-4-5" placeholder="多选题目选项">
+							</label>
+							<a href="javascript:;" data-type="div" class="uk-close uk-close-alt uk-margin-small-left"></a>
+						</div>
+					</div>
+					<div class="uk-form-row uk-margin-left uk-margin-small-bottom">
+						<a data-id="{{:uuid}}" data-question="{{:questiontype}}" class="uk-button uk-button-success uk-border-rounded uk-width-1-2"><i class="uk-icon-plus"></i> 增加</a>
+					</div>
+				</div>
+			</li>
+		</script>
+		<!--问答模版-->
+		<script id="textareaquestion" type="text/x-jsrender">
+			<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}">
+				<div class="uk-width-1-1 borderblack  uk-magin-bottom">
+					<div class="uk-sortable-handle uk-margin-small-left">
+						<i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right">
+							Q{{:num}}
+					   </i>
+						<a href="javascript:;" data-id="{{:uuid}}" data-type="li" class="uk-close uk-close-alt uk-float-right uk-margin-right"></a>
+					</div>
+					<div id="{{:uuid}}list" class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
+						<legend>
+							<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="问答题标题">
+						</legend>
+					</div>
+				</div>
+			</li>
+		</script>
+		<!--图片单选模版-->
+		<script id="oneimgquestion" type="text/x-jsrender">
+			<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}">
+				<div class="uk-width-1-1 borderblack  uk-magin-bottom">
+					<div class="uk-sortable-handle uk-margin-small-left">
+						<i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right">
+							Q{{:num}}
+					   </i>
+						<a href="javascript:;" data-id="{{:uuid}}" data-type="li" class="uk-close uk-close-alt uk-float-right uk-margin-right"></a>
+					</div>
+					<div id="{{:uuid}}list" class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
+						<legend>
+							<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="图片单选题标题">
+						</legend>
+						<div id="upload-drop" class="uk-placeholder uk-text-center">
+							<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> 将文件拖拽至此 或 <a class="uk-form-file">选择一个文件<input id="upload-select" type="file"></a>
+						</div>
+						<div id="progressbar" class="uk-progress uk-hidden">
+							<div class="uk-progress-bar" style="width: 0%;">0%</div>
+						</div>
+					</div>
+				</div>
+			</li>
+		</script>
+		<!--图片多选模版-->
+		<script id="muiltimgquestion" type="text/x-jsrender">
+			<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}">
+				<div class="uk-width-1-1 borderblack  uk-magin-bottom">
+					<div class="uk-sortable-handle uk-margin-small-left">
+						<i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right">
+							Q{{:num}}
+					   </i>
+						<a href="javascript:;" data-id="{{:uuid}}" data-type="li" class="uk-close uk-close-alt uk-float-right uk-margin-right"></a>
+					</div>
+					<div id="{{:uuid}}list" class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
+						<legend>
+							<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="图片多选题标题">
+						</legend>
+						<div id="upload-drop" class="uk-placeholder uk-text-center">
+							<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> 将文件拖拽至此 或 <a class="uk-form-file">选择一个文件<input id="upload-select" type="file"></a>
+						</div>
+						<div id="progressbar" class="uk-progress uk-hidden">
+							<div class="uk-progress-bar" style="width: 0%;">0%</div>
+						</div>
+					</div>
+				</div>
+			</li>
+		</script>
+		<!--单选选项模版-->
+		<script id="oneredioinput" type="text/x-jsrender">
+			<div class="uk-form-row">
+				<label>
+					<input type="radio" name="{{:uuid}}">
+					<input type="text" class="uk-border-rounded uk-width-4-5" placeholder="单选题目选项">
+				</label>
+				<a href="javascript:;" data-type="div" class="uk-close uk-close-alt uk-margin-small-left"></a>
+			</div>
+		</script>
+		<!--多选选项模版-->
+		<script id="onecheckboxnput" type="text/x-jsrender">
+			<div class="uk-form-row">
+				<label>
+					<input type="checkbox" name="{{:uuid}}">
+					<input type="text" class="uk-border-rounded uk-width-4-5" placeholder="多选题目选项">
+				</label>
+				<a href="javascript:;" data-type="div" class="uk-close uk-close-alt uk-margin-small-left"></a>
+			</div>
+		</script>
+	</body>
+
+</html>

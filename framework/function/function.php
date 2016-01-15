@@ -5,22 +5,26 @@
  * Date: 2015-11-15
  * Time: 21:48
  */
+
+//调用控制类
 function C($name, $method)
 {
-    require_once('../libs/Contronller/' . $name . 'Controller.class.php');
+    require_once('libs/Controller/' . $name . 'Controller.class.php');
     eval('$obj = new ' . $name . 'Controller();$obj->' . $method . '();');
 }
 
+//调用模型方法
 function M($name)
 {
-    require_once('../libs/Model/' . $name . 'Model.class.php');
+    require_once('libs/Model/' . $name . 'Model.class.php');
     eval('$obj = new ' . $name . 'Model();');
     return $obj;
 }
 
+//调用视图方法--------------基本不用  第三方库不完整
 function V($name)
 {
-    require_once('../libs/View/' . $name . 'View.class.php');
+    require_once('libs/View/' . $name . 'View.class.php');
     eval('$obj = new ' . $name . 'View();');
     return $obj;
 }

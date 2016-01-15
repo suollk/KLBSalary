@@ -8,23 +8,25 @@
  */
 
 class WEIXINURL{
-    public static $weixinurl;
+    public static $weixinfunction;
+
+
 
     public static function init($config){
-        self::$weixinurl = new weixinurl;
-        self::$weixinurl->init($config);
+        self::$weixinfunction = new weixinfunction;
+        self::$weixinfunction->init($config);
     }
 
     public static function getAccessToken(){
-        return self::$weixinurl->getAccessToken();
+        return self::$weixinfunction->getAccessToken();
     }
 
     public static function setAccessToken($atoken){
-        self::$weixinurl->setAccessToken($atoken);
+        self::$weixinfunction->setAccessToken($atoken);
     }
 
     public static function getuseridbycode($code)
     {
-        return self::$weixinurl->getuseridbycode($code);
+        return self::$weixinfunction->getuseridbycode($code);
     }
 }

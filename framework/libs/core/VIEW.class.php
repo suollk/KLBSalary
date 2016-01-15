@@ -11,7 +11,7 @@ class VIEW{
     public static $view;
 
     public static function init($viewtype,$configArr){
-        self::$view->$viewtype;
+        self::$view = new $viewtype;
         foreach($configArr as $key=>$value){
             self::$view->$key=$value;
         }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/uikit.min.css" />
+		<style type="text/css">
+			.uk-panel {
+				border: 1px solid #E8E8E8;
+			}
+			
+			.companyimg {
+				padding: 2px 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="maintop" class="uk-panel">		
+			<div class="uk-margin">
+				<nav class="uk-navbar">
+					<ul class="uk-navbar-nav">
+						<li class="uk-parent" data-uk-dropdown="" aria-haspopup="true" aria-expanded="false">
+							<a href="javascript:;"><i class="uk-icon-align-left"></i> 菜单</a>
+							<div class="uk-dropdown uk-dropdown-navbar">
+								<ul class="uk-nav uk-nav-navbar">
+									<li><a href="javascript:;"><i class="uk-icon-plus-square"></i> 新增题目</a></li>
+									<li><a href="javascript:;"><i class="uk-icon-plus-square"></i> 发布题目</a></li>
+									<li><a href="javascript:;"><i class="uk-icon-signal"></i> 历史题目</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+					<div class="uk-navbar-content uk-navbar-center uk-text-large uk-text-bold"><img class="uk-height-1-1 companyimg" src="img/klbicon.png" /></div>
+				</nav>
+			</div>
+		</div>
+
+		<div class="uk-panel">
+			<iframe id="mianframe" class="uk-width-1-1 uk-height-1-1" src="question.html">
+
+			</iframe>
+		</div>
+
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript" src="js/uikit.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$("#mianframe").innerHeight($(window).innerHeight() - $("#maintop").innerHeight() - 10)
+				$(window).resize(function() {
+					$("#mianframe").innerHeight($(window).innerHeight() - $("#maintop").innerHeight() - 10)
+				});
+			});
+		</script>
+	</body>
+
+</html>
