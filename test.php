@@ -8,11 +8,12 @@
 //
 //echo $FileArr["files"]["name"][0];
 
+print_r($_FILES);
 
-$aaa="111";
-$bbb="222";
-$ccc="333";
-
-$arr = compact("aaa","bbb","ccc");
-print_r($arr);
+//$aaa="111";
+//$bbb="222";
+//$ccc="333";
+//
+//$arr = compact("aaa","bbb","ccc");
+//print_r($arr);
 		

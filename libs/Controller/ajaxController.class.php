@@ -27,7 +27,7 @@ class ajaxController {
 	public function imgupload() {
 		$imgupload = M('form');
 		$result= $imgupload -> imgupload();
-		echo '{'.json_encode($result).'}';
+		echo json_encode($result);
 	}
 
 }

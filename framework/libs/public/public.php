@@ -102,3 +102,14 @@ function JSON($array) {
     $json = json_encode($array);
     return urldecode($json);
 }
+
+/**
+ * 获取文件类型4
+ * @param string $filename 文件名称
+ * @return string 文件类型
+ */
+function getFileType($filename) {
+    $exten = explode('.', $filename);
+    return end($exten);
+}
+

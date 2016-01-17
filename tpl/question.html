@@ -39,7 +39,8 @@
 								<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="调查问卷标题">
 							</div>
 							<div class="uk-width-1-2">
-								<a class="uk-button uk-button-primary uk-border-rounded uk-width-1-1"><i class="uk-icon-plus-square"></i> 创建</a>
+								<a class="uk-button uk-button-primary uk-border-rounded uk-width-1-1"><i
+                                class="uk-icon-plus-square"></i> 创建</a>
 							</div>
 						</div>
 					</legend>
@@ -117,15 +118,15 @@
 						case "2":
 							$("#questionlist div ul").append($("#textareaquestion").render(tempjson));
 							break;
-							//图片单选	
+							//图片单选
 						case "3":
 							$("#questionlist div ul").append($("#oneimgquestion").render(tempjson));
-							resetimgupload();
+							resetimgupload(uuid);
 							break;
 							//图片多选
 						case "4":
 							$("#questionlist div ul").append($("#muiltimgquestion").render(tempjson));
-							resetimgupload();
+							resetimgupload(uuid);
 							break;
 						default:
 							break;
@@ -190,14 +191,14 @@
 					})
 				}
 
-				function resetimgupload() {
-					var progressbar = $("#progressbar"),
+				function resetimgupload(uuid) {
+					var progressbar = $("#progressbar" + uuid),
 						bar = progressbar.find('.uk-progress-bar'),
 						settings = {
-							action: 'http://219.235.31.101/test.php', // 上传路径 url
+							action: 'http://192.168.1.101?controller=ajax&method=imgupload', // 上传路径 url
 							allow: '*.(jpg|jpeg|gif|png)', // 只允许上传图片
 							single: false,
-							type: 'json',
+							type: "json",
 							loadstart: function() {
 								bar.css("width", "0%").text("0%");
 								progressbar.removeClass("uk-hidden");
@@ -211,7 +212,36 @@
 								setTimeout(function() {
 									progressbar.addClass("uk-hidden");
 								}, 250);
-								console.log(response);
+								if (typeof response == "object") {
+									$("#" + uuid + "list").append($("#imgdisplay").render(response));
+									$("#" + uuid + "list img").each(function() {
+										var maxWidth = 100; // 图片最大宽度
+										var maxHeight = 100; // 图片最大高度   
+										var ratio = 0; // 缩放比例  
+										var width = $(this).width(); // 图片实际宽度   
+										var height = $(this).height(); // 图片实际高度     // 检查图片是否超宽   
+										if (width > maxWidth) {
+											ratio = maxWidth / width; // 计算缩放比例       
+											$(this).css("width", maxWidth); // 设定实际显示宽度       
+											height = height * ratio; // 计算等比例缩放后的高度       
+											$(this).css("height", height); // 设定等比例缩放后的高度   
+										} // 检查图片是否超高  
+										if (height > maxHeight) {
+											ratio = maxHeight / height; // 计算缩放比例      
+											$(this).css("height", maxHeight); // 设定实际显示高度       
+											width = width * ratio; // 计算等比例缩放后的高度       
+											$(this).css("width", width); // 设定等比例缩放后的高度   
+										}
+									});
+									resetaukclose(uuid);
+								} else {
+									UIkit.notify({
+										message: "<i class='uk-icon-close'></i><br/>服务器解析错误!返回数据有误!错误代码9!",
+										status: 'warning',
+										timeout: 3000,
+										pos: 'top-center'
+									});
+								}
 							},
 							notallowed: function(file, settings) {
 								UIkit.notify({
@@ -222,8 +252,8 @@
 								});
 							}
 						};
-					var select = UIkit.uploadSelect($("#upload-select"), settings),
-						drop = UIkit.uploadDrop($("#upload-drop"), settings);
+					var select = UIkit.uploadSelect($("#upload-select" + uuid), settings),
+						drop = UIkit.uploadDrop($("#upload-drop" + uuid), settings);
 				}
 			});
 		</script>
@@ -262,6 +292,7 @@
 					</div>
 				</div>
 			</li>
+
 		</script>
 		<!--多选模版-->
 		<script id="checkboxquestion" type="text/x-jsrender">
@@ -297,6 +328,7 @@
 					</div>
 				</div>
 			</li>
+
 		</script>
 		<!--问答模版-->
 		<script id="textareaquestion" type="text/x-jsrender">
@@ -315,6 +347,7 @@
 					</div>
 				</div>
 			</li>
+
 		</script>
 		<!--图片单选模版-->
 		<script id="oneimgquestion" type="text/x-jsrender">
@@ -326,19 +359,23 @@
 					   </i>
 						<a href="javascript:;" data-id="{{:uuid}}" data-type="li" class="uk-close uk-close-alt uk-float-right uk-margin-right"></a>
 					</div>
-					<div id="{{:uuid}}list" class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
+					<div class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
 						<legend>
 							<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="图片单选题标题">
 						</legend>
-						<div id="upload-drop" class="uk-placeholder uk-text-center">
-							<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> 将文件拖拽至此 或 <a class="uk-form-file">选择一个文件<input id="upload-select" type="file"></a>
+						<div id="{{:uuid}}list" class="uk-grid uk-margin-large-left uk-width-1-1">
+
 						</div>
-						<div id="progressbar" class="uk-progress uk-hidden">
+						<div id="upload-drop{{:uuid}}" class="uk-form-row  uk-placeholder uk-text-center uk-margin-top">
+							<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> 将文件拖拽至此 或 <a class="uk-form-file">选择一个文件<input id="upload-select{{:uuid}}" type="file"></a>
+						</div>
+						<div id="progressbar{{:uuid}}" class="uk-progress uk-hidden">
 							<div class="uk-progress-bar" style="width: 0%;">0%</div>
 						</div>
 					</div>
 				</div>
 			</li>
+
 		</script>
 		<!--图片多选模版-->
 		<script id="muiltimgquestion" type="text/x-jsrender">
@@ -350,19 +387,26 @@
 					   </i>
 						<a href="javascript:;" data-id="{{:uuid}}" data-type="li" class="uk-close uk-close-alt uk-float-right uk-margin-right"></a>
 					</div>
-					<div id="{{:uuid}}list" class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
+					<div class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
 						<legend>
 							<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="图片多选题标题">
 						</legend>
-						<div id="upload-drop" class="uk-placeholder uk-text-center">
-							<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> 将文件拖拽至此 或 <a class="uk-form-file">选择一个文件<input id="upload-select" type="file"></a>
+						<div class="uk-form-row">
+							<div id="{{:uuid}}list" class="uk-grid uk-margin  uk-width-1-1" data-uk-margin="" data-uk-grid-margin="">
+
+							</div>
 						</div>
-						<div id="progressbar" class="uk-progress uk-hidden">
+
+						<div id="upload-drop{{:uuid}}" class="uk-form-row  uk-placeholder uk-text-center">
+							<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> 将文件拖拽至此 或 <a class="uk-form-file">选择一个文件<input id="upload-select{{:uuid}}" type="file"></a>
+						</div>
+						<div id="progressbar{{:uuid}}" class="uk-progress uk-hidden">
 							<div class="uk-progress-bar" style="width: 0%;">0%</div>
 						</div>
 					</div>
 				</div>
 			</li>
+
 		</script>
 		<!--单选选项模版-->
 		<script id="oneredioinput" type="text/x-jsrender">
@@ -373,6 +417,7 @@
 				</label>
 				<a href="javascript:;" data-type="div" class="uk-close uk-close-alt uk-margin-small-left"></a>
 			</div>
+
 		</script>
 		<!--多选选项模版-->
 		<script id="onecheckboxnput" type="text/x-jsrender">
@@ -382,6 +427,22 @@
 					<input type="text" class="uk-border-rounded uk-width-4-5" placeholder="多选题目选项">
 				</label>
 				<a href="javascript:;" data-type="div" class="uk-close uk-close-alt uk-margin-small-left"></a>
+			</div>
+		</script>
+		<!--新增图片模版-->
+		<script id="imgdisplay" type="text/x-jsrender">
+			<div class="uk-width-3-10 uk-margin-right  uk-margin-small-bottom  uk-thumbnail">
+				<a href="javascript:;" data-type="div" class="uk-close uk-close-alt uk-float-right uk-margin-small-right"></a>
+				{{if msg!=""}}
+				<label>{{:msg}}</label>
+				{{else}}
+				<div style="border: 1px solid #FFF7F8;overflow: hidden;height: 100;">
+					<img src=" ../data/imgfiles/{{:imagename}}" width="100" height="100"   alt=""> {{/if}}
+				</div>
+				<div class="uk-thumbnail-caption uk-margin-small-top">
+					<input type="text" class="uk-border-rounded uk-width-1-1 uk-margin-small-bottom" placeholder="图片标题">
+					<textarea name="" class="uk-border-rounded uk-width-1-1" rows="5" placeholder="图片简介"></textarea>
+				</div>
 			</div>
 		</script>
 	</body>

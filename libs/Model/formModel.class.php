@@ -44,9 +44,8 @@ class formModel
     //定义返回的数组
         $backArr = array();
     //根据数量逐个遍历文件
-        for ($i = 0; $i <= $imgcount; $i++) {
+        for ($i = 0; $i <= $imgcount-1; $i++) {
             $msg = "";
-
             if ($_FILES['files']['error'][$i] != UPLOAD_ERR_OK) {
                 switch ($_FILES['files']['error']) {
                     case UPLOAD_ERR_INI_SIZE :
@@ -91,19 +90,19 @@ class formModel
                 9 = JPC，10 = JP2，11 = JPX，12 = JB2，13 = SWC，14 = IFF，15 = WBMP，16 = XBM，
                 $attr : 索引 3 是文本字符串，内容为“height="yyy" width="xxx"”，可直接用于 IMG 标记
                 */
-                list($width, $height, $type, $attr) = getimagesize($_FILES['uploadfile']['tmp_name'][$i]);
+                list($width, $height, $type, $attr) = getimagesize($_FILES['files']['tmp_name'][$i]);
                 //imagecreatefromgXXX方法从一个url路径中创建一个新的图片
                 switch ($type) {
                     case IMAGETYPE_GIF :
-                        $image = imagecreatefromgif($_FILES['uploadfile']['tmp_name'][$i]);
+                        $image = imagecreatefromgif($_FILES['files']['tmp_name'][$i]);
                         $ext = '.gif';
                         break;
                     case IMAGETYPE_JPEG :
-                        $image = imagecreatefromjpeg($_FILES['uploadfile']['tmp_name'][$i]);
+                        $image = imagecreatefromjpeg($_FILES['files']['tmp_name'][$i]);
                         $ext = '.jpg';
                         break;
                     case IMAGETYPE_PNG :
-                        $image = imagecreatefrompng($_FILES['uploadfile']['tmp_name'][$i]);
+                        $image = imagecreatefrompng($_FILES['files']['tmp_name'][$i]);
                         $ext = '.png';
                         break;
                     default :
@@ -111,14 +110,15 @@ class formModel
                 }
 
                 //有url指定的图片创建图片并保存到指定目录
-                $imagename = uniqid() + $_FILES['files']['name'][$i];
+                $imagename = uniqid().".".getFileType($_FILES['files']['name'][$i]);
                 imagegif($image, $this->_imgdir . '/' . $imagename);
                 //销毁由url生成的图片
                 imagedestroy($image);
             } else {
                 $imagename = $_FILES['files']['name'][$i];
             }
-            $backArr[] = compact("msg","imagename");
+             $backArr[$i] = array("msg"=>"$msg","imagename"=>"$imagename");
+
         }
         return $backArr;
     }
