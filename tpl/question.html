@@ -36,10 +36,13 @@
 					<legend>
 						<div class="uk-grid uk-margin-small-bottom" data-uk-grid-margin="">
 							<div class="uk-width-1-2">
-								<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="调查问卷标题">
+								<div class="uk-form-icon uk-width-1-1">
+									<i class="uk-icon-sticky-note"></i>
+									<input id="maintitle" type="text" class="uk-border-rounded uk-width-1-1" placeholder="调查问卷标题">
+								</div>
 							</div>
 							<div class="uk-width-1-2">
-								<a class="uk-button uk-button-primary uk-border-rounded uk-width-1-1"><i
+								<a id="submitall" class="uk-button uk-button-primary uk-border-rounded uk-width-1-1"><i
                                 class="uk-icon-plus-square"></i> 创建</a>
 							</div>
 						</div>
@@ -84,19 +87,108 @@
 		<script type="text/javascript" src="js/components/notify.min.js"></script>
 		<script type="text/javascript">
 			$(function() {
+				//动态设定高度
 				$("#questionlist").innerHeight($(window).innerHeight() - $('#questionlist')[0].offsetTop - $(window).scrollTop() - 6);
 				$(window).resize(function() {
 					$("#questionlist").innerHeight($(window).innerHeight() - $('#questionlist')[0].offsetTop - $(window).scrollTop() - 6);
 				});
-				// randow4位数
-				function S4() {
-					return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-				};
-				// 创建GUID
-				function guid() {
-					return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-				};
-				//添加问题按钮
+				//点击创建按钮事件
+				$("#maintitle").on("change", function() {
+					$(this).removeClass("uk-form-danger");
+				})
+				$("#submitall").on("click", function() {
+						//优先判断标题是否为空
+						if ($("#maintitle").val() == "") {
+							UIkit.notify({
+								message: "<i class='uk-icon-close'></i><br/>调查问卷标题标题为空!!",
+								status: 'warning',
+								timeout: 3000,
+								pos: 'top-center'
+							});
+							$("#maintitle").addClass("uk-form-danger");
+							return;
+						}
+						if ($(".item").length == "0") {
+							UIkit.notify({
+								message: "<i class='uk-icon-close'></i><br/>请至少有一道题目!",
+								status: 'warning',
+								timeout: 3000,
+								pos: 'top-center'
+							});
+							return;
+						}
+						//判断是否有Input为空
+						$("input[type='text']").each(function(index) {
+							if ($(this).val() == "") {
+								$(this).addClass("uk-form-danger");
+							}
+						})
+						if ($("input.uk-form-danger").length > 0) {
+							UIkit.notify({
+								message: "<i class='uk-icon-close'></i><br/>请检查题目中的标题或者选项!有" + $("input.uk-form-danger").length + "选项为空!!",
+								status: 'warning',
+								timeout: 3000,
+								pos: 'top-center'
+							});
+							return;
+						}
+						//检测单选多选必须有一个选项
+						//检测图片选择题必须大于1张图
+						$(".item").each(function(index) {
+								if ($(this).attr("data-question") == "0" || $(this).attr("data-question") == "1") {
+									if ($(this).find("input[type='text']").length == "1") {
+										UIkit.notify({
+											message: "<i class='uk-icon-close'></i><br/>[" + $(this).attr("data-name") + "]选择题的选项至少为1个!",
+											status: 'warning',
+											timeout: 3000,
+											pos: 'top-center'
+										});
+										return false;
+									}
+								}
+								if ($(this).attr("data-question") == "3" || $(this).attr("data-question") == "4") {
+									if ($(this).find("img").length == "0") {
+										UIkit.notify({
+											message: "<i class='uk-icon-close'></i><br/>[" + $(this).attr("data-name") + "]图片选项题至少为1张图片!",
+											status: 'warning',
+											timeout: 3000,
+											pos: 'top-center'
+										});
+										return false;
+									}
+								}
+							})
+							//-----检查完毕开始组装json数据------//
+							//分两条json发送  一个为题目  一条为选项  问卷标题用参数返回
+							//问卷标题
+						var maintitle = '{"id":"' + guid() + '","date":"' + Math.round(new Date().getTime() / 1000) + '","questionmaintitle":"' + $("#maintitle").val() + '"}';
+						//题目json
+						var questionjson = "";
+						//选项json
+						var optionsjson = "";
+						$(".item").each(function(index) {
+							questionjson = questionjson + '["id":"' + this.id + ',"question":"' + $("#" + this.id + "maintitle").val() + '","sortnum":"' + index + '","questiontype":"' + $(this).attr("data-question") + '","maxselect":""' + '","canselsame":""],';
+							var tempid = this.id;
+							if ($(this).attr("data-question") == "0" || $(this).attr("data-question") == "1") {
+								$("#" + tempid + "list .uk-form-row input[type='text']").each(function(index) {
+									optionsjson = optionsjson + '["id":"' + guid() + '","questionid":"' + tempid + '","sortnum":"' + index + '","optiontitle":"' + $(this).val() + '","imgsrc":" ' + '","imgdescribe":""],';
+								})
+							}
+							if ($(this).attr("data-question") == "3" || $(this).attr("data-question") == "4") {
+								$("#" + tempid + "list .imgseldiv").each(function(index) {
+									optionsjson = optionsjson + '["id":"' + guid() + '","questionid":"' + tempid + '","sortnum":"' + index + '","optiontitle":"' + $(this).find("input[type=text]").val() + '","imgsrc":"' + $(this).find("img").attr("data-src") + '","imgdescribe":"' + $(this).find("textarea").val() + '"],';
+								})
+							}
+						})
+						questionjson = questionjson.substring(0, questionjson.Length - 1);
+						questionjson = "{" + questionjson + "}";
+						optionsjson = optionsjson.substring(0, optionsjson.Length - 1);
+						optionsjson = "{" + optionsjson + "}";
+						console.log(maintitle);
+						console.log(questionjson);
+						console.log(optionsjson);
+					})
+					//添加问题按钮
 				$("#addquestionul li").on("click", function() {
 					if (typeof($(this).attr("data-type")) == "undefined") {
 						return;
@@ -134,6 +226,9 @@
 					resetaukclose(uuid);
 					resetasuccess(uuid);
 					$('#questionlist').scrollTop($('#questionlist')[0].scrollHeight);
+					$("#" + uuid + " input").on("change", function() {
+						$(this).removeClass("uk-form-danger");
+					})
 				})
 
 				function aukcloseclick() {
@@ -151,6 +246,14 @@
 							break;
 					}
 				}
+				// randow4位数
+				function S4() {
+					return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+				};
+				// 创建GUID
+				function guid() {
+					return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+				};
 
 				function resetaukclose(uuid) {
 					$("#" + uuid + " a.uk-close").on("click", function() {
@@ -195,7 +298,7 @@
 					var progressbar = $("#progressbar" + uuid),
 						bar = progressbar.find('.uk-progress-bar'),
 						settings = {
-							action: 'http://192.168.1.101?controller=ajax&method=imgupload', // 上传路径 url
+							action: 'http://192.168.10.10?controller=ajax&method=imgupload', // 上传路径 url
 							allow: '*.(jpg|jpeg|gif|png)', // 只允许上传图片
 							single: false,
 							type: "json",
@@ -213,27 +316,43 @@
 									progressbar.addClass("uk-hidden");
 								}, 250);
 								if (typeof response == "object") {
-									$("#" + uuid + "list").append($("#imgdisplay").render(response));
-									$("#" + uuid + "list img").each(function() {
-										var maxWidth = 100; // 图片最大宽度
-										var maxHeight = 100; // 图片最大高度   
-										var ratio = 0; // 缩放比例  
-										var width = $(this).width(); // 图片实际宽度   
-										var height = $(this).height(); // 图片实际高度     // 检查图片是否超宽   
-										if (width > maxWidth) {
-											ratio = maxWidth / width; // 计算缩放比例       
-											$(this).css("width", maxWidth); // 设定实际显示宽度       
-											height = height * ratio; // 计算等比例缩放后的高度       
-											$(this).css("height", height); // 设定等比例缩放后的高度   
-										} // 检查图片是否超高  
-										if (height > maxHeight) {
-											ratio = maxHeight / height; // 计算缩放比例      
-											$(this).css("height", maxHeight); // 设定实际显示高度       
-											width = width * ratio; // 计算等比例缩放后的高度       
-											$(this).css("width", width); // 设定等比例缩放后的高度   
+									for (var i = 0; i < response.length; i++) {
+										var errormg = "";
+										if (response[i]["msg"] != "") {
+											errormg = errormg + response[i]["msg"] + "<br/>";
 										}
-									});
-									resetaukclose(uuid);
+										if (errormg != "") {
+											UIkit.notify({
+												message: errormg,
+												status: 'warning',
+												timeout: 3000,
+												pos: 'top-center'
+											});
+											return;
+										} else {
+											$("#" + uuid + "list").append($("#imgdisplay").render(response));
+											$("#" + uuid + "list img").each(function() {
+												var maxWidth = 100; // 图片最大宽度
+												var maxHeight = 100; // 图片最大高度   
+												var ratio = 0; // 缩放比例  
+												var width = $(this).width(); // 图片实际宽度   
+												var height = $(this).height(); // 图片实际高度     // 检查图片是否超宽   
+												if (width > maxWidth) {
+													ratio = maxWidth / width; // 计算缩放比例       
+													$(this).css("width", maxWidth); // 设定实际显示宽度       
+													height = height * ratio; // 计算等比例缩放后的高度       
+													$(this).css("height", height); // 设定等比例缩放后的高度   
+												} // 检查图片是否超高  
+												if (height > maxHeight) {
+													ratio = maxHeight / height; // 计算缩放比例      
+													$(this).css("height", maxHeight); // 设定实际显示高度       
+													width = width * ratio; // 计算等比例缩放后的高度       
+													$(this).css("width", width); // 设定等比例缩放后的高度   
+												}
+											});
+											resetaukclose(uuid);
+										}
+									}
 								} else {
 									UIkit.notify({
 										message: "<i class='uk-icon-close'></i><br/>服务器解析错误!返回数据有误!错误代码9!",
@@ -260,17 +379,17 @@
 
 		<!--单选模版-->
 		<script id="redioquestion" type="text/x-jsrender">
-			<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}">
+			<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}" data-name="问题{{:num}}">
 				<div class="uk-width-1-1 borderblack  uk-magin-bottom">
 					<div class="uk-sortable-handle uk-margin-small-left">
 						<i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right">
-							Q{{:num}}
+							问题{{:num}}
 					   </i>
 						<a href="javascript:;" data-id="{{:uuid}}" data-type="li" class="uk-close uk-close-alt uk-float-right uk-margin-right"></a>
 					</div>
 					<div id="{{:uuid}}list" class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
 						<legend>
-							<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="单选题目标题">
+							<input type="text" id="{{:uuid}}maintitle" class="uk-border-rounded uk-width-1-1" placeholder="单选题目标题">
 						</legend>
 						<div class="uk-form-row">
 							<label>
@@ -296,17 +415,17 @@
 		</script>
 		<!--多选模版-->
 		<script id="checkboxquestion" type="text/x-jsrender">
-			<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}">
+			<li class="uk-width-1-1 item uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}" data-name="问题{{:num}}">
 				<div class="uk-width-1-1 borderblack  uk-magin-bottom">
 					<div class="uk-sortable-handle uk-margin-small-left">
 						<i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right">
-							Q{{:num}}
+							问题{{:num}}
 					   </i>
 						<a href="javascript:;" data-id="{{:uuid}}" data-type="li" class="uk-close uk-close-alt uk-float-right uk-margin-right"></a>
 					</div>
 					<div id="{{:uuid}}list" class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
 						<legend>
-							<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="多选题目标题">
+							<input type="text" id="{{:uuid}}maintitle" class="uk-border-rounded uk-width-1-1" placeholder="多选题目标题">
 						</legend>
 						<div class="uk-form-row">
 							<label>
@@ -336,13 +455,13 @@
 				<div class="uk-width-1-1 borderblack  uk-magin-bottom">
 					<div class="uk-sortable-handle uk-margin-small-left">
 						<i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right">
-							Q{{:num}}
+							问题{{:num}}
 					   </i>
 						<a href="javascript:;" data-id="{{:uuid}}" data-type="li" class="uk-close uk-close-alt uk-float-right uk-margin-right"></a>
 					</div>
 					<div id="{{:uuid}}list" class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
 						<legend>
-							<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="问答题标题">
+							<input type="text" id="{{:uuid}}maintitle" class="uk-border-rounded uk-width-1-1" placeholder="问答题标题">
 						</legend>
 					</div>
 				</div>
@@ -351,17 +470,17 @@
 		</script>
 		<!--图片单选模版-->
 		<script id="oneimgquestion" type="text/x-jsrender">
-			<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}">
+			<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}" data-name="问题{{:num}}">
 				<div class="uk-width-1-1 borderblack  uk-magin-bottom">
 					<div class="uk-sortable-handle uk-margin-small-left">
 						<i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right">
-							Q{{:num}}
+							问题{{:num}}
 					   </i>
 						<a href="javascript:;" data-id="{{:uuid}}" data-type="li" class="uk-close uk-close-alt uk-float-right uk-margin-right"></a>
 					</div>
 					<div class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
 						<legend>
-							<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="图片单选题标题">
+							<input type="text" id="{{:uuid}}maintitle" class="uk-border-rounded uk-width-1-1" placeholder="图片单选题标题">
 						</legend>
 						<div id="{{:uuid}}list" class="uk-grid uk-margin-large-left uk-width-1-1">
 
@@ -379,17 +498,17 @@
 		</script>
 		<!--图片多选模版-->
 		<script id="muiltimgquestion" type="text/x-jsrender">
-			<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}">
+			<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}" data-name="问题{{:num}}">
 				<div class="uk-width-1-1 borderblack  uk-magin-bottom">
 					<div class="uk-sortable-handle uk-margin-small-left">
 						<i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right">
-							Q{{:num}}
+							问题{{:num}}
 					   </i>
 						<a href="javascript:;" data-id="{{:uuid}}" data-type="li" class="uk-close uk-close-alt uk-float-right uk-margin-right"></a>
 					</div>
 					<div class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
 						<legend>
-							<input type="text" class="uk-border-rounded uk-width-1-1" placeholder="图片多选题标题">
+							<input type="text" id="{{:uuid}}maintitle" class="uk-border-rounded uk-width-1-1" placeholder="图片多选题标题">
 						</legend>
 						<div class="uk-form-row">
 							<div id="{{:uuid}}list" class="uk-grid uk-margin  uk-width-1-1" data-uk-margin="" data-uk-grid-margin="">
@@ -431,13 +550,10 @@
 		</script>
 		<!--新增图片模版-->
 		<script id="imgdisplay" type="text/x-jsrender">
-			<div class="uk-width-3-10 uk-margin-right  uk-margin-small-bottom  uk-thumbnail">
+			<div class="imgseldiv uk-width-3-10 uk-margin-right  uk-margin-small-bottom  uk-thumbnail">
 				<a href="javascript:;" data-type="div" class="uk-close uk-close-alt uk-float-right uk-margin-small-right"></a>
-				{{if msg!=""}}
-				<label>{{:msg}}</label>
-				{{else}}
 				<div style="border: 1px solid #FFF7F8;overflow: hidden;height: 100;">
-					<img src=" ../data/imgfiles/{{:imagename}}" width="100" height="100"   alt=""> {{/if}}
+					<img src=" ../data/imgfiles/{{:imagename}}" data-src="{{:imagename}}" width="100" height="100" alt="">
 				</div>
 				<div class="uk-thumbnail-caption uk-margin-small-top">
 					<input type="text" class="uk-border-rounded uk-width-1-1 uk-margin-small-bottom" placeholder="图片标题">
