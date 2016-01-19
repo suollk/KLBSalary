@@ -22,12 +22,4 @@ class ajaxController {
 		$result = $salaryM -> getOneMonuthSalaryDetail($_COOKIE['klbweixinuserid'], $_GET["mouth"]);
 		echo $_GET["jsoncallback1"] . '({"result":"' . $result . '","data":"' . json_encode($result) . '"})';
 	}
-
-
-	public function imgupload() {
-		$imgupload = M('form');
-		$result= $imgupload -> imgupload();
-		echo json_encode($result);
-	}
-
 }

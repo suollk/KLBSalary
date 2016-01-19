@@ -79,12 +79,13 @@
 				</div>
 			</form>
 		</div>
-		<script src="js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 		<script type="text/javascript" src="js/uikit.min.js"></script>
 		<script type="text/javascript" src="js/jsviews.min.js"></script>
-		<script src="js/components/sortable.min.js"></script>
+		<script type="text/javascript" src="js/components/sortable.min.js"></script>
 		<script type="text/javascript" src="js/components/upload.min.js"></script>
 		<script type="text/javascript" src="js/components/notify.min.js"></script>
+		<script type="text/javascript" src="js/base.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				//动态设定高度
@@ -161,13 +162,14 @@
 							//-----检查完毕开始组装json数据------//
 							//分两条json发送  一个为题目  一条为选项  问卷标题用参数返回
 							//问卷标题
-						var maintitle = '{"id":"' + guid() + '","date":"' + Math.round(new Date().getTime() / 1000) + '","questionmaintitle":"' + $("#maintitle").val() + '"}';
+						var mianid = guid();
+						var maintitle = '{"id":"' + mianid + '","date":"' + Math.round(new Date().getTime() / 1000) + '","inquirename":"' + $("#maintitle").val() + '"}';
 						//题目json
 						var questionjson = "";
 						//选项json
 						var optionsjson = "";
 						$(".item").each(function(index) {
-							questionjson = questionjson + '["id":"' + this.id + ',"question":"' + $("#" + this.id + "maintitle").val() + '","sortnum":"' + index + '","questiontype":"' + $(this).attr("data-question") + '","maxselect":""' + '","canselsame":""],';
+							questionjson = questionjson + '["id":"' + this.id + '","inquireid":"' + mianid + '","sortnum":"' + index + '","questionname":"' + $("#" + this.id + "maintitle").val() + '","type":"' + $(this).attr("data-question") + '","maxselect":""' + '","canselsame":""],';
 							var tempid = this.id;
 							if ($(this).attr("data-question") == "0" || $(this).attr("data-question") == "1") {
 								$("#" + tempid + "list .uk-form-row input[type='text']").each(function(index) {
@@ -184,6 +186,25 @@
 						questionjson = "{" + questionjson + "}";
 						optionsjson = optionsjson.substring(0, optionsjson.Length - 1);
 						optionsjson = "{" + optionsjson + "}";
+						//---------json数据组装完毕------//
+						//发送数据
+						$.ajax({
+							type: "post",
+							async: true,
+							url: baseurl + "savehomeworkanswer",
+							data: {
+								maintitle: maintitle,
+								questionjson: questionjson,
+								optionsjson: optionsjson
+							},
+							dataType: "jsonp",
+							jsonp: "jsoncallback1",
+							success: function(json) {
+							},
+							error: function() {
+								swal("网络请求出错");
+							}
+						});
 						console.log(maintitle);
 						console.log(questionjson);
 						console.log(optionsjson);
@@ -252,7 +273,7 @@
 				};
 				// 创建GUID
 				function guid() {
-					return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+					return (S4() + S4() + S4() + S4() + S4() + S4() + S4() + S4());
 				};
 
 				function resetaukclose(uuid) {
@@ -298,7 +319,7 @@
 					var progressbar = $("#progressbar" + uuid),
 						bar = progressbar.find('.uk-progress-bar'),
 						settings = {
-							action: 'http://192.168.10.10?controller=ajax&method=imgupload', // 上传路径 url
+							action: 'http://192.168.10.10?controller=inquiry&method=imgupload', // 上传路径 url
 							allow: '*.(jpg|jpeg|gif|png)', // 只允许上传图片
 							single: false,
 							type: "json",
