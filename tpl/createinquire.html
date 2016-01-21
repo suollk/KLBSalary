@@ -43,7 +43,7 @@
 							</div>
 							<div class="uk-width-1-2">
 								<a id="submitall" class="uk-button uk-button-primary uk-border-rounded uk-width-1-1"><i
-                                class="uk-icon-plus-square"></i> 创建</a>
+                                class="uk-icon-plus-square" data-uk-modal="{target:'#modal-spinner'}"></i> 创建</a>
 							</div>
 						</div>
 					</legend>
@@ -70,7 +70,7 @@
 						<div id="questionlist" class="uk-panel uk-panel-box border">
 							<!--最外层的div-->
 							<div class="uk-panel uk-container-center">
-								<ul class="uk-sortable uk-grid" data-uk-sortable="{handleClass:'uk-sortable-handle'}">
+								<ul id="questionlistul" class="uk-sortable uk-grid" data-uk-sortable="{handleClass:'uk-sortable-handle'}">
 
 								</ul>
 							</div>
@@ -78,6 +78,12 @@
 					</div>
 				</div>
 			</form>
+
+			<div id="modal-spinner" class="uk-modal" aria-hidden="true" style="display: none; overflow-y: scroll;">
+				<div class="uk-modal-dialog">
+					<div class="uk-modal-spinner"></div>
+				</div>
+			</div>
 		</div>
 		<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 		<script type="text/javascript" src="js/uikit.min.js"></script>
@@ -162,6 +168,8 @@
 							//-----检查完毕开始组装json数据------//
 							//分两条json发送  一个为题目  一条为选项  问卷标题用参数返回
 							//问卷标题
+						var modal = UIkit.modal.blockUI('<p class="uk-text-large uk-text-bold uk-text-center"><i class="uk-icon-spinner"></i>请稍后,正在处理数据...</p>');
+						modal.show();
 						var mianid = guid();
 						var maintitle = '{"id":"' + mianid + '","date":"' + Math.round(new Date().getTime() / 1000) + '","inquirename":"' + $("#maintitle").val() + '"}';
 						//题目json
@@ -169,29 +177,28 @@
 						//选项json
 						var optionsjson = "";
 						$(".item").each(function(index) {
-							questionjson = questionjson + '["id":"' + this.id + '","inquireid":"' + mianid + '","sortnum":"' + index + '","questionname":"' + $("#" + this.id + "maintitle").val() + '","type":"' + $(this).attr("data-question") + '","maxselect":""' + '","canselsame":""],';
+							console.log(index);
+							questionjson = questionjson + '{"id":"' + this.id + '","inquireid":"' + mianid + '","sortnum":"' + index + '","questionname":"' + $("#" + this.id + "maintitle").val() + '","type":"' + $(this).attr("data-question") + '","maxselect":"' + '","canselsame":""},';
 							var tempid = this.id;
 							if ($(this).attr("data-question") == "0" || $(this).attr("data-question") == "1") {
 								$("#" + tempid + "list .uk-form-row input[type='text']").each(function(index) {
-									optionsjson = optionsjson + '["id":"' + guid() + '","questionid":"' + tempid + '","sortnum":"' + index + '","optiontitle":"' + $(this).val() + '","imgsrc":" ' + '","imgdescribe":""],';
+									optionsjson = optionsjson + '{"id":"' + guid() + '","questionid":"' + tempid + '","sortnum":"' + index + '","optiontitle":"' + $(this).val() + '","imgsrc":" ' + '","imgdescribe":""},';
 								})
 							}
 							if ($(this).attr("data-question") == "3" || $(this).attr("data-question") == "4") {
 								$("#" + tempid + "list .imgseldiv").each(function(index) {
-									optionsjson = optionsjson + '["id":"' + guid() + '","questionid":"' + tempid + '","sortnum":"' + index + '","optiontitle":"' + $(this).find("input[type=text]").val() + '","imgsrc":"' + $(this).find("img").attr("data-src") + '","imgdescribe":"' + $(this).find("textarea").val() + '"],';
+									optionsjson = optionsjson + '{"id":"' + guid() + '","questionid":"' + tempid + '","sortnum":"' + index + '","optiontitle":"' + $(this).find("input[type=text]").val() + '","imgsrc":"' + $(this).find("img").attr("data-src") + '","imgdescribe":"' + $(this).find("textarea").val() + '"},';
 								})
 							}
 						})
-						questionjson = questionjson.substring(0, questionjson.Length - 1);
-						questionjson = "{" + questionjson + "}";
-						optionsjson = optionsjson.substring(0, optionsjson.Length - 1);
-						optionsjson = "{" + optionsjson + "}";
+						questionjson = '{"data":[' + questionjson.substring(0, questionjson.length - 1) + "]}";
+						optionsjson = '{"data":[' + optionsjson.substring(0, optionsjson.length - 1) + "]}";
 						//---------json数据组装完毕------//
 						//发送数据
 						$.ajax({
 							type: "post",
 							async: true,
-							url: baseurl + "savehomeworkanswer",
+							url: baseurlno + '?controller=inquiry&method=createinquiry&maintitle='+maintitle+'&questionjson='+questionjson+'&optionsjson='+optionsjson,
 							data: {
 								maintitle: maintitle,
 								questionjson: questionjson,
@@ -200,14 +207,40 @@
 							dataType: "jsonp",
 							jsonp: "jsoncallback1",
 							success: function(json) {
+								modal.hide();
+								if (json["result"].length > 0) {
+									UIkit.notify({
+										message: "<i class='uk-icon-close'></i><br/>" + json["result"],
+										status: 'danger',
+										timeout: 3000,
+										pos: 'top-center'
+									});
+								} else {									
+									UIkit.notify({
+										message: "<i class='uk-icon-close'></i><br/>" + $("#maintitle").val() + "问卷创建成功!",
+										status: 'success',
+										timeout: 3000,
+										pos: 'top-center'
+									});
+									$("#maintitle").val("");
+									document.getElementById("maintitle").value='';
+									$("#questionlistul").empty();
+								}
 							},
 							error: function() {
-								swal("网络请求出错");
+								modal.hide();
+								UIkit.notify({
+									message: "<i class='uk-icon-close'></i><br/>网络出错!",
+									status: 'danger',
+									timeout: 3000,
+									pos: 'top-center'
+								});
 							}
 						});
 						console.log(maintitle);
 						console.log(questionjson);
 						console.log(optionsjson);
+						//						modal.hide();
 					})
 					//添加问题按钮
 				$("#addquestionul li").on("click", function() {
@@ -221,24 +254,24 @@
 					switch ($(this).attr("data-type")) {
 						//单选
 						case "0":
-							$("#questionlist div ul").append($("#redioquestion").render(tempjson));
+							$("#questionlistul").append($("#redioquestion").render(tempjson));
 							break;
 							//多选
 						case "1":
-							$("#questionlist div ul").append($("#checkboxquestion").render(tempjson));
+							$("#questionlistul").append($("#checkboxquestion").render(tempjson));
 							break;
 							//问答
 						case "2":
-							$("#questionlist div ul").append($("#textareaquestion").render(tempjson));
+							$("#questionlistul").append($("#textareaquestion").render(tempjson));
 							break;
 							//图片单选
 						case "3":
-							$("#questionlist div ul").append($("#oneimgquestion").render(tempjson));
+							$("#questionlistul").append($("#oneimgquestion").render(tempjson));
 							resetimgupload(uuid);
 							break;
 							//图片多选
 						case "4":
-							$("#questionlist div ul").append($("#muiltimgquestion").render(tempjson));
+							$("#questionlistul").append($("#muiltimgquestion").render(tempjson));
 							resetimgupload(uuid);
 							break;
 						default:
@@ -319,7 +352,7 @@
 					var progressbar = $("#progressbar" + uuid),
 						bar = progressbar.find('.uk-progress-bar'),
 						settings = {
-							action: 'http://192.168.10.10?controller=inquiry&method=imgupload', // 上传路径 url
+							action: baseurlno + '?controller=inquiry&method=imgupload', // 上传路径 url
 							allow: '*.(jpg|jpeg|gif|png)', // 只允许上传图片
 							single: false,
 							type: "json",
@@ -515,7 +548,6 @@
 					</div>
 				</div>
 			</li>
-
 		</script>
 		<!--图片多选模版-->
 		<script id="muiltimgquestion" type="text/x-jsrender">
@@ -529,15 +561,12 @@
 					</div>
 					<div class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
 						<legend>
-							<input type="text" id="{{:uuid}}maintitle" class="uk-border-rounded uk-width-1-1" placeholder="图片多选题标题">
+							<input type="text" id="{{:uuid}}maintitle" class="uk-border-rounded uk-width-1-1" placeholder="图片单选题标题">
 						</legend>
-						<div class="uk-form-row">
-							<div id="{{:uuid}}list" class="uk-grid uk-margin  uk-width-1-1" data-uk-margin="" data-uk-grid-margin="">
+						<div id="{{:uuid}}list" class="uk-grid uk-margin-large-left uk-width-1-1">
 
-							</div>
 						</div>
-
-						<div id="upload-drop{{:uuid}}" class="uk-form-row  uk-placeholder uk-text-center">
+						<div id="upload-drop{{:uuid}}" class="uk-form-row  uk-placeholder uk-text-center uk-margin-top">
 							<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> 将文件拖拽至此 或 <a class="uk-form-file">选择一个文件<input id="upload-select{{:uuid}}" type="file"></a>
 						</div>
 						<div id="progressbar{{:uuid}}" class="uk-progress uk-hidden">
@@ -546,7 +575,6 @@
 					</div>
 				</div>
 			</li>
-
 		</script>
 		<!--单选选项模版-->
 		<script id="oneredioinput" type="text/x-jsrender">

@@ -11,7 +11,7 @@ class mysql
 //    报错函数
     function err($error)
     {
-        die("发生错误:" . $error);
+        die("{'result':'" . $error."'");
     }
 //    链接函数
 //    $configArr=array($dbhost,$dbuser,$dbpsw,$dbname,$dbcharset)
@@ -20,7 +20,7 @@ class mysql
         //此函数将数组转换为参数
         extract($configArr);
         if (!($con = mysqli_connect($configArr["dbhost"], $configArr["dbuser"],
-            $configArr["dbpsw"],$configArr["dbname"]))) {
+            $configArr["dbpsw"],$configArr["dbname"],$configArr["port"]))) {
             $this->err(mysqli_error($con));
         }
 
@@ -54,23 +54,23 @@ class mysql
         $rs = mysqli_fetch_array($query, MYSQL_ASSOC);
         return isset($rs) ? $rs : "";
     }
-//  返回结果中某一行某一列的值
+//  返回结果中某一行某一列的值   --- mysqli已废除
     function findResult($query,$row = 0,$field = 0){
         $rs = mysqli_result($query,$row,$field);
         return isset($rs) ? $rs : "";
     }
 //  在表中插入数据
-    function insert($table,$arr){
+    function insert($con,$table,$arr){
         foreach ($arr as $key=>$value){
-            $value = mysqli_real_escape_string($value);
-            $keyArr = "'".$key."'";
-            $valueArr = "'".$value."'";
+            $value = mysqli_real_escape_string($con,$value);
+            $keyArr[] = $key;
+            $valueArr[] = '"'.$value.'"';
         }
-        $keys = implode($keyArr);
-        $values = implode($valueArr);
-        $sql = "insert into ".$table." (".$keys.") values".$values;
-        $this->query($sql);
-        return mysqil_insert_id();
+        $keys = implode(",",$keyArr);
+        $values = implode(",",$valueArr);
+        $sql = "insert into ".$table." (".$keys.") values(".$values.")";
+        $this->query($con,$sql);
+        return mysqli_insert_id($con);
     }
 //  在表中更新数据
     function update($con,$table,$arr, $where= ""){

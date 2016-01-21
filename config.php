@@ -20,15 +20,19 @@ $config = array(
 //   数据库配置参数
 "dbconfig" => array(
 //   数据库IP地址
-"dbhost" => "127.0.0.1",
+"dbhost" => "192.168.10.109",
 //  数据库用户名
 "dbuser" => "root",
 //  数据库密码
-"dbpsw" => "",
+"dbpsw" => "Zhylwdm3",
 //  数据库名
 "dbname" => "kanglebao",
 //   数据库默认字符集
-"dbcharset" => "utf-8"), "weixinconfig" => array(
+"dbcharset" => "utf8",
+//数据库端口号
+"port"=>"3308"),
+//微信自动回复事件等
+ "weixinconfig" => array(
 //   微信默认参数
 "token" => "4u98neBc7YRND1OwvMiXzhBqp0P8NJT5SFyrwg13BDA", "encodingAesKey" => "Ce7CGSs7G6peAyXpMkx4r", "corpId" => "wx96475c9ad190e02b"),
 //   微信权限默认参数
