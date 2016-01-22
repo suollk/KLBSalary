@@ -16,6 +16,8 @@ class accesstokenModel{
                 WEIXINURL::setAccessToken($cacheaccesstoken);
                 CACHEFILE::cacheData("access_token", $cacheaccesstoken, 1200);
             }
+        }else{
+            WEIXINURL::setAccessToken($cacheaccesstoken);
         }
 
         return $cacheaccesstoken;

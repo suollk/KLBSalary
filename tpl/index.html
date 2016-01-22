@@ -10,13 +10,39 @@
 		<meta http-equiv="Cache" content="no-cache,no-store,must-revalidate">
 		<title>康克保工资查询</title>
 		<link rel="stylesheet" href="tpl/css/uikit.min.css" />
+		<link rel="stylesheet" type="text/css" href="tpl/css/components/notify.min.css" />
+		<style>
+			.back {
+				padding: 25px;
+				background-color: rgba(0, 0, 0, 0.0);
+				/* IE9、标准浏览器、IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂 */
+			}
+			
+			@media \0screen\,
+			screen\9 {
+				/* 只支持IE6、7、8 */
+				.back {
+					background-color: #000000;
+					filter: Alpha(opacity=50);
+					position: static;
+					/* IE6、7、8只能设置position:static(默认属性) ，否则会导致子元素继承Alpha值 */
+					*zoom: 1;
+					/* 激活IE6、7的haslayout属性，让它读懂Alpha */
+				}
+			}
+		</style>
 	</head>
 
 	<body class="uk-height-1-1 uk-width-1-1 uk-text-center">
 		<div class="uk-width-1-1  uk-height-1-1 uk-vertical-align" style="background:url(tpl/img/5-1206010S323.png);">
 			<div class="uk-vertical-align-middle uk-width-1-1">
-				<form class="uk-panel uk-panel-box uk-form" style="background:url(tpl/img/5-1206010S323.png);">
+				<form class="uk-panel uk-panel-box uk-form back">
 					<img class="uk-width-1-2" src="tpl/img/klbicon.png" alt="">
+					<br />
+					<div class="uk-thumbnail back">
+						<img src="{[$avatarimg]}" alt="">
+						<div class="uk-thumbnail-caption uk-text-bold">{[$username]}</div>
+					</div>
 					<div class="uk-form-row  uk-margin-top">
 						<input class="uk-width-1-1 uk-form-large" id="psw1" type="password" placeholder="请输入查询密码">
 					</div>

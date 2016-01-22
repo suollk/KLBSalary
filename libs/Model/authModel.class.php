@@ -5,7 +5,7 @@
 			//加载
 			$adminobj = M('weixinuser');
 			$auth = $adminobj -> findOne_by_username($username);
-			if((!empty($auth))&&$auth['password']==$password){
+			if((!empty($auth))&&$auth['querypassword']==$password){
 				return "";
 			}else{
 				return "查询密码错误!";

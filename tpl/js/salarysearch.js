@@ -13,6 +13,6 @@ requirejs.config({
 
 requirejs(['jquery', 'uikit','notie','base'], function($) {
 	$("#selectlist li a").on("click",function(){
-		document.location = baseurl + "?controller=salary&method=index&mouth="+$(this).attr("data-mouth");
+		document.location = baseurl + "?controller=salary&method=index&month="+$(this).attr("data-month")+"&year="+$(this).attr("data-year");
 	})
 })

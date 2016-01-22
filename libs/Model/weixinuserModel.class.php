@@ -17,7 +17,7 @@
 		}
 
 		function insertpsw_by_username($username,$psw){
-			$updatefile = array("password"=>$psw);
+			$updatefile = array("querypassword"=>$psw);
 			return DB::update($this->_table,$updatefile,'userid="'.$username.'"');
 		}
 

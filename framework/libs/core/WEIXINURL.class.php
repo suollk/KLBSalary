@@ -29,4 +29,9 @@ class WEIXINURL{
     {
         return self::$weixinfunction->getuseridbycode($code);
     }
+
+    public static function getuserinfobyuserid($userid)
+    {
+        return self::$weixinfunction->getuserinfobyuserid($userid);
+    }
 }

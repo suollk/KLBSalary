@@ -9,7 +9,13 @@
 class ajaxController {
 	//用户登录
 	public function checklogin() {
+		if(session_id()==''){
+			echo $_GET["jsoncallback1"] . '({"result":"你已经和服务器断开,请刷新页面重试!"})';
+			exit;
+		}
+
 		$auth = M('auth');
+
 		$userpass = base64_decode($_GET["hash"]);
 		$userpass = rtrim(trim($userpass), "||" . session_id());
 

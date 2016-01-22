@@ -14,6 +14,16 @@ class inquiryController{
         //参数为用户名和问卷id
         //第一步是看此用户是否已经答过此问卷了
         //传递的是inquired userid从cookie中取得
+        $creat = M('inquiry');
+        $result = $creat -> getinquirydetail("4b588f562fae3833250828e6810492f8");
+        //注册变量
+        VIEW::assign(array('datainfo' => $result));
+        //生成模版
+        VIEW::display('temp.html');
+        exit;
+
+
+
         $userid="";
         $inquireid="";
         if(isset($userid)&&isset($inquireid)){

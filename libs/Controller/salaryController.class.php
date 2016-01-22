@@ -1,41 +1,62 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Lumia
  * Date: 2016/1/3
  * Time: 21:22
  */
-class salaryController {
-	public $auth;
-	//起始登录函数
-	//第一步判断是否有此员工信息  第一步是取
-	//第二部判断此员工是否已经设置了密码
-	public function index() {
-		if (isset($_COOKIE["klbweixinuserid"])) {
-			$userid = $_COOKIE['klbweixinuserid'];
-		} else {
-			exit ;
-		}
-		$salayM = M('salary');
-		$mouthArr = $salayM -> getsalaryMouth($userid);
-		if (!empty($mouthArr)) {
-			if (isset($_GET["mouth"])) {
-				$mouth = $_GET["mouth"];
-			} else {
-				$mouth = $mouthArr[0]["mouth"];
-			}
+class salaryController
+{
+    public $auth;
+    //起始登录函数
+    //第一步判断是否有此员工信息  第一步是取
+    //第二部判断此员工是否已经设置了密码
+    public function index()
+    {
+        //初始化数据   获取userid usercode
+        if (isset($_COOKIE["klbweixinuserid"])) {
+            $userid = $_COOKIE['klbweixinuserid'];
+            if (!isset($_COOKIE['klbweixinusercode'])) {
+                //通过userid去user的信息
+                $backArr = WEIXINURL::getuserinfobyuserid($userid);
 
-			foreach ($mouthArr as $k => $v) {
-				if ($mouth == $v["mouth"])
-					unset($mouthArr[$k]);
-			}
+                if ($backArr["errcode"] == "0" && $backArr["errmsg"] == "ok") {
+                    $usercode = $backArr["extattr"]["attrs"][0]["value"] != "" ? $backArr["extattr"]["attrs"][0]["value"] : "为空";
+                } else {
+                    echo "获取人员信息失败" . $backArr["errcode"] . $backArr["errmsg"];
+                    exit;
+                }
+            } else {
+                $usercode = $_COOKIE['klbweixinusercode'];
+            }
+        } else {
+            exit;
+        }
+        //获取当前数据库存在此用户有数据的年月
+        $salayM = M('salary');
+        $monthArr = $salayM->getsalaryMonth($usercode);
 
-			VIEW::assign(array('mouth' => $mouth));
-			$mouthdetailArr = $salayM -> getOneMonuthSalaryDetail($userid, $mouth);
-			VIEW::assign(array('mouthdetailArr' => $mouthdetailArr));
-		}
-		VIEW::assign(array('mouthArr' => $mouthArr));
-		VIEW::display("salarysearch.html");
-	}
+        if (!empty($monthArr)) {
+            if (isset($_GET["year"]) && isset($_GET["month"])) {
+                $year = $_GET["year"];
+                $month = $_GET["month"];
+            } else {
+                $year = $monthArr[0]["year"];
+                $month = $monthArr[0]["month"];
+            }
+
+            foreach ($monthArr as $k => $v) {
+                if ($month == $v["month"] && $year == $v["year"])
+                    unset($monthArr[$k]);
+            }
+
+            VIEW::assign(array('year' => $year, 'month' => $month));
+            $monthdetailArr = $salayM->getOneMonthSalaryDetail($usercode, $year, $month);
+            VIEW::assign(array('monthdetailArr' => $monthdetailArr));
+        }
+        VIEW::assign(array('monthArr' => $monthArr));
+        VIEW::display("salarysearch.html");
+    }
 
 }

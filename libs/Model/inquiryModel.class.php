@@ -88,21 +88,26 @@ class inquiryModel{
 
     function getinquirydetail($inquireid){
         //获取调查问卷题目详情
-        $sql = "select * from ".$this->_inquiryquestion." where inquireid=\"".$inquireid."\"";
+        $sql = "select * from ".$this->_inquiryquestion." where inquireid=\"".$inquireid."\" order by sortnum";
         $inquiryquestionArr = DB::findAll($sql);
         $sql = "select ".$this->_inquiryoption.".* from ".$this->_inquiryquestion.",".$this->_inquiryoption
               ." where ".$this->_inquiryoption.".questionid=".$this->_inquiryquestion.".id".
-              " and ".$this->_inquiryquestion.".inquireid=\"".$inquireid."\"";
+              " and ".$this->_inquiryquestion.".inquireid=\"".$inquireid."\" order by sortnum";
         $inquiryoptionArr = DB::findAll($sql);
 
         //将选项作为数组直接插入到问题后
         for($j = 0;$j <count($inquiryquestionArr);$j++){
+            if(isset($newoptionArr)){
+                unset($newoptionArr);
+            }
             for($i = 0;$i <sizeof($inquiryoptionArr);$i++ ){
                 if($inquiryoptionArr[$i]["questionid"] == $inquiryquestionArr[$j]["id"]){
                     $newoptionArr[] = $inquiryoptionArr[$i];
                 }
             }
-            $inquiryquestionArr[$j]["data"] = $newoptionArr;
+            if(isset($newoptionArr)){
+                $inquiryquestionArr[$j]["data"] = $newoptionArr;
+            }
         }
 
         return $inquiryquestionArr;

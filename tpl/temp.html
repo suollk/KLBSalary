@@ -1,10 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html>
 
-</body>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache,no-store,must-revalidate">
+		<meta http-equiv="Cache-control" content="no-cache,no-store,must-revalidate">
+		<meta http-equiv="Cache" content="no-cache,no-store,must-revalidate">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>{[$title]}</title>
+		<link rel="stylesheet" type="text/css" href="tpl/css/uikit.min.css" />
+		<link rel="stylesheet" type="text/css" href="tpl/css/components/form-advanced.min.css"/>
+	</head>
+	<body>
+		<!--题目浏览区-->
+		<div id="inquirecontent" class="uk-width-1-1">
+			<div class="uk-panel uk-panel-box">
+				<form class="uk-form">
+					{[foreach from=$datainfo key=myId item=dataArr]}
+					{[if $dataArr.sortnum=="0"]}
+					<div data-sortnum="{[$dataArr.sortnum]}" data-id="{[$dataArr.id]}" data-maxselect="{[$dataArr.maxselect]}" data-canselsame="{[$dataArr.canselsame]}" class="question">
+					{[else]}
+					<div data-sortnum="{[$dataArr.sortnum]}" data-id="{[$dataArr.id]}" data-maxselect="{[$dataArr.maxselect]}" data-canselsame="{[$dataArr.canselsame]}" class="question uk-hidden">
+					{[/if]}
+						<fieldset>
+							<legend>{[$dataArr.questionname]}</legend>
+							<div id="{[$dataArr.id]}list" class="uk-scrollable-box uk-width-1-1 uk-height-1-1 questionscroll">
+								{[if $dataArr.type=="0"]} {[foreach from=$dataArr.data key=myId item=optionArr]}
+								<div class="uk-width-1-1">
+									<label class="uk-text-large">
+										<input type="radio" name="{[$optionArr.questionid]}" value="{[$optionArr.id]}"> {[$optionArr.optiontitle]}</label>
+								</div>
+								{[/foreach]} {[elseif $dataArr.type=="1"]} {[foreach from=$dataArr.data key=myId item=optionArr]}
+								<div class="uk-width-1-1">
+									<label class="uk-text-large">
+										<input type="checkbox" name="{[$optionArr.questionid]}" value="{[$optionArr.id]}"> {[$optionArr.optiontitle]}</label>
+								</div>
+								{[/foreach]} {[elseif $dataArr.type=="2"]}
+								<textarea class="uk-width-1-1" data-id="{[$dataArr.id]}" data-parent="{[$dataArr.id]}" rows="20"></textarea>
+								{[elseif $dataArr.type=="3"]}
+								<div data-uk-button-radio>
+									<div class="uk-grid">
+										{[foreach from=$dataArr.data key=myId item=optionArr]}
+										<div class="uk-width-1-2">
+											<div class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
+												<div class="imgdiv uk-width-1-1 uk-vertical-align" data-uk-modal="{target:'#{[$optionArr.id]}'}">
+													<img src="data/imgfiles/{[$optionArr.imgsrc]}" class="uk-vertical-align-middle uk-align-center" />
+												</div>
+												<p class="uk-article-meta uk-text-center uk-text-large">{[$optionArr.optiontitle]}</p>
+												<a class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-border-rounded">投票给他</a>
+											</div>
+										</div>
+										{[/foreach]}
+									</div>
+								</div>
+								{[foreach from=$dataArr.data key=myId item=optionArr]}
+								<div id="{[$optionArr.id]}" class="uk-modal" aria-hidden="true" style="display: none; overflow-y: auto;">
+									<div class="uk-modal-dialog">
+										<div class="uk-width-1-1">
+											<img src="data/imgfiles/{[$optionArr.imgsrc]}" class="uk-width-1-1" />
+										</div>
+										<p class="uk-article-meta uk-text-center uk-text-large">{[$optionArr.optiontitle]}
+										</p>
+										<p class="uk-article-meta">{[$optionArr.imgdescribe]}
+										</p>
+									</div>
+								</div>
+								{[/foreach]} {[elseif $dataArr.type=="4"]}
+								<div data-uk-button-checkbox>
+									<div class="uk-grid">
+										{[foreach from=$dataArr.data key=myId item=optionArr]}
+										<div class="uk-width-1-2">
+											<div class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
+												<div class="imgdiv uk-width-1-1 uk-vertical-align" data-uk-modal="{target:'#{[$optionArr.id]}'}">
+													<img src="data/imgfiles/{[$optionArr.imgsrc]}" class="uk-vertical-align-middle uk-align-center" />
+												</div>
+												<p class="uk-article-meta uk-text-center uk-text-large">{[$optionArr.optiontitle]}</p>
+												<a class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-border-rounded">投票给他</a>
+											</div>
+										</div>
+										{[/foreach]}
+									</div>
+								</div>
+								{[foreach from=$dataArr.data key=myId item=optionArr]}
+								<div id="{[$optionArr.id]}" class="uk-modal" aria-hidden="true" style="display: none; overflow-y: auto;">
+									<div class="uk-modal-dialog">
+										<div class="uk-width-1-1">
+											<img src="data/imgfiles/{[$optionArr.imgsrc]}" class="uk-width-1-1" />
+										</div>
+										<p class="uk-article-meta uk-text-bold uk-text-large">{[$optionArr.optiontitle]}
+										</p>
+										<p class="uk-article-meta">{[$optionArr.imgdescribe]}
+										</p>
+									</div>
+								</div>
+								{[/foreach]} {[/if]}
+							</div>
+						</fieldset>
+					</div>
+					{[foreachelse]}
+					<li><a href="javascript:;" data-mouth="{[$mouthArr.mouth]}">暂无数据</a></li>
+					{[/foreach]}
+				</form>
+			</div>
+		</div>
+
+		<!--按钮区域-->
+		<div id="buttoncontent" class="uk-position-bottom uk-width-1-1">
+			<div class="uk-panel uk-panel-box">
+				<div class="uk-grid">
+					<div class="uk-width-1-2 uk-invisible" id="btnup">
+						<button class="uk-button-primary uk-button-large uk-width-1-1 uk-border-rounded">上一题</button>
+					</div>
+					<div class="uk-width-1-2 uk-float-right" id="btnnext">
+						<button class="uk-button-primary uk-button-large uk-width-1-1 uk-border-rounded">下一题</button>
+					</div>
+					<div class="uk-width-1-2 uk-hidden" id="btnsubmit">
+						<button class="uk-float-right uk-button-primary uk-button-large uk-width-1-1 uk-border-rounded">提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="tpl/js/require.js" data-main="tpl/js/inquire.js"></script>
+	</body>
+
 </html>

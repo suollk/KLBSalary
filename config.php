@@ -41,5 +41,7 @@ $config = array(
 "corpid" => "wx96475c9ad190e02b",
 //   微信安全码
 "corpsecret" => "EO_BTxdJP2angu5XZmeZVno5xM2sIW_BDfFzzkb-gZOaB0BBeRGWpUGK5FzFhqjz",
-//   微信默认信息获取路径
+//    微信应用id
+"appid"=>"5",
+//   微信企业号默认信息获取路径
 "weixinurl" => "https://qyapi.weixin.qq.com"));
