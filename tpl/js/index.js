@@ -61,6 +61,7 @@ requirejs(['jquery', 'cookie', 'uikit', 'notie', 'base', "JQmd5", "JQbase64", "n
 			$("#psw1").focus();
 			return;
 		}
+		//后期这段屏蔽
 		//userid = $.cookie('klbweixinuserid');
 		//userpassword =$('#psw1').val();
 		//var timestrp = $.cookie('klbweixinusersessionid');
@@ -106,13 +107,23 @@ requirejs(['jquery', 'cookie', 'uikit', 'notie', 'base', "JQmd5", "JQbase64", "n
 			success: function(json) {
 				//
 				if (json["result"] == '') {
-					document.location = baseurl + "?controller=salary&method=index";
+					document.location = baseurl + "?controller=adminindex&method=index";
 				} else {
-					notie.alert(3, json["result"], 1.5);
+					UIkit.notify({
+						message: json["result"],
+						status: 'danger',
+						timeout: 6000,
+						pos: 'bottom-center'
+					});
 				}
 			},
 			error: function() {
-				notie.alert(2, "网络请求错误", 1.5);
+				UIkit.notify({
+					message: "网络请求错误",
+					status: 'danger',
+					timeout: 6000,
+					pos: 'bottom-center'
+				});
 			}
 		});
 

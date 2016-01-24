@@ -4,12 +4,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-		<link rel="stylesheet" type="text/css" href="css/uikit.min.css" />
+		<link rel="stylesheet" type="text/css" href="tpl/css/uikit.min.css" />
+		<link rel="stylesheet" type="text/css" href="tpl/css/components/notify.min.css" />
 		<style type="text/css">
-			.uk-panel {
-				border: 1px solid #E8E8E8;
-			}
-			
 			.companyimg {
 				padding: 2px 0;
 			}
@@ -17,40 +14,87 @@
 	</head>
 
 	<body>
-		<div id="maintop" class="uk-panel">		
+		<div id="maintop" class="uk-panel">
 			<div class="uk-margin">
 				<nav class="uk-navbar">
-					<ul class="uk-navbar-nav">
-						<li class="uk-parent" data-uk-dropdown="" aria-haspopup="true" aria-expanded="false">
-							<a href="javascript:;"><i class="uk-icon-align-left"></i> 菜单</a>
-							<div class="uk-dropdown uk-dropdown-navbar">
-								<ul class="uk-nav uk-nav-navbar">
-									<li><a href="javascript:;"><i class="uk-icon-plus-square"></i> 新增题目</a></li>
-									<li><a href="javascript:;"><i class="uk-icon-plus-square"></i> 发布题目</a></li>
-									<li><a href="javascript:;"><i class="uk-icon-signal"></i> 历史题目</a></li>
-								</ul>
-							</div>
-						</li>
-					</ul>
 					<div class="uk-navbar-content uk-navbar-center uk-text-large uk-text-bold"><img class="uk-height-1-1 companyimg" src="img/klbicon.png" /></div>
 				</nav>
 			</div>
 		</div>
 
-		<div class="uk-panel">
-			<iframe id="mianframe" class="uk-width-1-1 uk-height-1-1" src="question.html">
+		<div id="mianframe" class="uk-panel">
+			<div id="buttoncontent" class="uk-width-1-1">
+				<div class="uk-panel uk-panel-box">
+					<div class="uk-grid">
+						<div class="uk-width-1-1  uk-margin-large-top" id="salary" data-num="{[ $mydata.havesalary]}">
+							<button class="uk-button-large uk-width-1-1 uk-border-rounded uk-text-bold uk-text-large">
+								<i class="uk-icon-money"></i>薪资查询
+								<br/><br/><br/>
+								{[$mydata.salary]}
+							</button>
+						</div>
+						<div class="uk-width-1-1 uk-margin-large-top" id="inquriry" data-num="{[ $mydata.inquire]}">
+							<button class="uk-button-large uk-width-1-1 uk-border-rounded uk-text-bold uk-text-large">
+								<i class="uk-icon-file-text-o"></i>调查问卷
+								<br/><br/><br/>
+								{[if $mydata.inquire=="0"]}
+								<br/>
+								{[else]}
+								你当前有{[ $mydata.inquire]}封调查问卷,请查看!
+								{[/if]}
+							</button>
+						</div>
+						<div class="uk-width-1-1 uk-margin-large-top" id="btnsubmit">
+							<button class="uk-button-large uk-width-1-1 uk-border-rounded uk-text-bold uk-text-large uk-disabled">
+											<i class="uk-icon-save"></i>考勤消费记录
+											<br/><br/><br/>
+											敬请期待
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
-			</iframe>
+		</div>
 		</div>
 
-		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-		<script type="text/javascript" src="js/uikit.min.js"></script>
+		<script src="tpl/js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="tpl/js/uikit.min.js"></script>
+		<script type="text/javascript" src="tpl/js/components/notify.min.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				$("#mianframe").innerHeight($(window).innerHeight() - $("#maintop").innerHeight() - 10)
 				$(window).resize(function() {
 					$("#mianframe").innerHeight($(window).innerHeight() - $("#maintop").innerHeight() - 10)
 				});
+
+				$("#salary").on("click",function(){
+					if ($("#salary").attr("data-num")==0){
+						UIkit.notify({
+							message: "<i class='uk-icon-close'></i><br/>你当前没有薪水记录!!",
+							status: 'warning',
+							timeout: 6000,
+							pos: 'bottom-center'
+						});
+						return;
+					}
+
+					document.location = baseurl + "?controller=salary&method=index";
+				})
+
+				$("#inquriry").on("click",function(){
+					if ($("#inquriry").attr("data-num")==0){
+						UIkit.notify({
+							message: "<i class='uk-icon-close'></i><br/>你当前没有调查问卷!!",
+							status: 'warning',
+							timeout: 6000,
+							pos: 'bottom-center'
+						});
+						return;
+					}
+
+					document.location = baseurl + "?controller=salary&method=index";
+				})
 			});
 		</script>
 	</body>

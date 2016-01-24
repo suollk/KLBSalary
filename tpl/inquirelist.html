@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="tpl/css/uikit.min.css" />
+		<link rel="stylesheet" type="text/css" href="tpl/css/components/notify.min.css" />
+		<style type="text/css">
+			.companyimg {
+				padding: 2px 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="maintop" class="uk-panel">
+			<div class="uk-margin">
+				<nav class="uk-navbar">
+					<div class="uk-navbar-content uk-navbar-center uk-text-large uk-text-bold"><img class="uk-height-1-1 companyimg" src="img/klbicon.png" /></div>
+				</nav>
+			</div>
+		</div>
+
+		<div id="mianframe" class="uk-panel">
+			<div id="inquirycount" class="uk-width-1-1">
+				<div class="uk-panel uk-panel-box">
+					<div class="uk-grid">
+						<div class="uk-width-1-1">
+							<div class="uk-tab-center">
+								<ul class="uk-tab" data-uk-tab="" data-uk-switcher="{connect:'#my-id'}">
+									<li class="uk-active" aria-expanded="false"><a href="#">新增调查问卷</a></li>
+									<li class="" aria-expanded="false"><a href="#">历史调查问卷</a></li>
+								</ul>
+							</div>
+							<ul id="my-id" class="uk-switcher">
+								<li>
+									<table class="uk-table uk-table-striped uk-table-condensed uk-text-nowrap ">
+										<thead>
+											<tr>
+												<th class="uk-width-3-4 uk-text-center "></th>
+												<th class="uk-width-1-4 uk-text-center "></th>
+											</tr>
+										</thead>
+										<tbody id="tbodylist ">
+											{[foreach from=$inquiry key=myId item=inquirydetail]}
+											<tr>
+												<td class="uk-text-center">{[$inquirydetail.inquirename]}<p class="uk-text-muted">截至日期:{[$inquirydetail.enddate]}</p></td>
+												<td class="uk-text-center"><button class="uk-button uk-width-1-1" data-id = "{[$inquirydetail.inquireid]}">点击查看</button></td>
+											</tr>
+											{[foreachelse]}
+											<tr>
+												<td class="uk-text-center ">无数据
+											</tr>
+											{[/foreach]}
+										</tbody>
+									</table>
+								</li>
+								<li>
+									<table class="uk-table uk-table-striped uk-table-condensed uk-text-nowrap ">
+										<thead>
+											<tr>
+												<th class="uk-width-1-2 uk-text-center "></th>
+												<th class="uk-width-1-2 uk-text-center "></th>
+											</tr>
+										</thead>
+										<tbody id="tbodylist ">
+											{[foreach from=$inquiryhistory key=myId item=inquiryhistorydetail]}
+											<tr>
+												<td class="uk-text-center">{[$inquiryhistorydetail.inquirename]}<p class="uk-text-muted">截至日期:{[$inquiryhistorydetail.enddate]}</p></td>
+												<td class="uk-text-center"><button class="uk-button uk-width-1-1" data-id = "{[$inquiryhistorydetail.inquireid]}">点击查看</button></td>
+											</tr>
+											{[foreachelse]}
+											<tr>
+												<td class="uk-text-center ">无数据
+											</tr>
+											{[/foreach]}
+										</tbody>
+									</table>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</div>
+		</div>
+
+		<script src="tpl/js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="tpl/js/uikit.min.js"></script>
+		<script type="text/javascript" src="tpl/js/components/notify.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$("#mianframe").innerHeight($(window).innerHeight() - $("#maintop").innerHeight() - 10)
+				$(window).resize(function() {
+					$("#mianframe").innerHeight($(window).innerHeight() - $("#maintop").innerHeight() - 10)
+				});
+				$("button").on("click", function() {
+					if ($("button").attr("data-id") == "") {
+						return;
+					}
+					document.location = baseurl + "?controller=salary&method=index&inquiryid="+$("button").attr("data-id") ;
+				})
+			});
+		</script>
+	</body>
+
+</html>

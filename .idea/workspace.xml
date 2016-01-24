@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/libs/Model/adminindexModel.class.php" line="19" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="4018c5fa-0dd1-4b29-bd26-2f4b38dc5d95" name="Default" comment="" />
     <ignored path="KLBSalary.iws" />
@@ -22,110 +25,122 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="indexModel.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libs/Model/indexModel.class.php">
+      <file leaf-file-name="adminindexController.class.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libs/Controller/adminindexController.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.586207">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state vertical-scroll-proportion="-1.637931">
+              <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="adminindex.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tpl/adminindex.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.362069">
+              <caret line="95" column="20" selection-start-line="95" selection-start-column="20" selection-end-line="95" selection-end-column="84" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="createinquire.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tpl/createinquire.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-14.928572">
+              <caret line="124" column="35" selection-start-line="118" selection-start-column="24" selection-end-line="124" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tpl/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.6785714">
+              <caret line="26" column="37" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tpl/js/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="2.5333333">
+              <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="inquirylistController.class.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/libs/Controller/inquirylistController.class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.59375">
+              <caret line="22" column="74" selection-start-line="22" selection-start-column="60" selection-end-line="22" selection-end-column="74" />
               <folding>
-                <marker date="1451541095208" expanded="true" signature="238:300" placeholder="select * fro... ${$this-&gt;_table}" />
-                <marker date="1451541095208" expanded="true" signature="398:419" placeholder="select count... ${$this-&gt;_table}" />
+                <element signature="e#6#86#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="indexController.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libs/Controller/indexController.class.php">
+      <file leaf-file-name="inquiryModel.class.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libs/Model/inquiryModel.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="8.142858">
-              <caret line="31" column="20" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ajaxController.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libs/Controller/ajaxController.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.2222223">
-              <caret line="12" column="73" selection-start-line="12" selection-start-column="73" selection-end-line="12" selection-end-column="73" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="inquiryController.class.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/libs/Controller/inquiryController.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5225653">
-              <caret line="50" column="5" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="function.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/framework/function/function.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.0689654">
-              <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pc.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/framework/pc.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.2413793">
-              <caret line="46" column="32" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.827586">
-              <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="salaryController.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libs/Controller/salaryController.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.8461537">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="salaryModel.class.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libs/Model/salaryModel.class.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.230769">
-              <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+            <state vertical-scroll-proportion="-12.25">
+              <caret line="86" column="32" selection-start-line="86" selection-start-column="32" selection-end-line="86" selection-end-column="32" />
               <folding>
-                <marker date="1453451256236" expanded="true" signature="259:387" placeholder="SELECT mouth... ${$this-&gt;dtailtable}" />
-                <marker date="1453451256236" expanded="true" signature="524:563" placeholder="SELECT filed... " />
-                <marker date="1453451256236" expanded="true" signature="524:659" placeholder="SELECT * FRO... ${$this-&gt;filetable}" />
-                <marker date="1453451256236" expanded="true" signature="1114:1664" placeholder="SELECT * FRO... ${$this-&gt;filetable}" />
+                <element signature="e#7#124#0#PHP" expanded="false" />
+                <marker date="1453643728485" expanded="true" signature="1782:2212" placeholder="SELECT * fro... jhkj_publishinquire" />
+                <marker date="1453643728485" expanded="true" signature="1782:2828" placeholder="SELECT * fro... jhkj_publishinquire" />
+                <marker date="1453643728485" expanded="true" signature="1782:2834" placeholder="SELECT jhkj_... jhkj_publishinquire" />
+                <marker date="1453643728485" expanded="true" signature="1782:2870" placeholder="SELECT jhkj_... jhkj_publishinquire" />
+                <marker date="1453643728485" expanded="true" signature="1934:2212" placeholder="select weixi... weixin_user" />
+                <marker date="1453643728485" expanded="true" signature="2790:2828" placeholder="SELECT jhkj_... jhkj_publishinquire" />
+                <marker date="1453643728485" expanded="true" signature="3079:4124" placeholder="SELECT jhkj_... jhkj_publishinquire" />
+                <marker date="1453643728485" expanded="true" signature="3079:4162" placeholder="SELECT jhkj_... jhkj_publishinquire" />
+                <marker date="1453643728485" expanded="true" signature="3079:4167" placeholder="SELECT jhkj_... jhkj_publishinquire" />
+                <marker date="1453643728485" expanded="true" signature="3231:3521" placeholder="select weixi... weixin_user" />
+                <marker date="1453643728485" expanded="true" signature="4372:4472" placeholder="select count... ${$this-&gt;_answer}" />
+                <marker date="1453643728485" expanded="true" signature="4679:4780" placeholder="select * fro... ${$this-&gt;_inquiryquestion}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="salarysearch.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tpl/js/salarysearch.js">
+      <file leaf-file-name="inquirelist.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tpl/inquirelist.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <state vertical-scroll-proportion="-5.464286">
+              <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="inquirylistModel.class.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libs/Model/inquirylistModel.class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-10.857142">
+              <caret line="16" column="61" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="61" />
+              <folding>
+                <element signature="e#6#86#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="adminindexModel.class.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/libs/Model/adminindexModel.class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-6.107143">
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="27" selection-end-column="1" />
+              <folding>
+                <element signature="e#6#86#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -149,13 +164,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/framework/libs/inc/WXBizMsgCrypt.php" />
-        <option value="$PROJECT_DIR$/reader" />
-        <option value="$PROJECT_DIR$/libs/Model/indexModel.class.php" />
-        <option value="$PROJECT_DIR$/framework/libs/cache/cachefile.class.php" />
-        <option value="$PROJECT_DIR$/libs/Model/newsModel.class.php" />
-        <option value="$PROJECT_DIR$/framework/libs/weixin/weixinurl.class.php" />
-        <option value="$PROJECT_DIR$/admin.php" />
         <option value="$PROJECT_DIR$/framework/apc.php" />
         <option value="$PROJECT_DIR$/ajax.php" />
         <option value="$PROJECT_DIR$/tpl/js/main.js" />
@@ -175,9 +183,7 @@
         <option value="$PROJECT_DIR$/libs/Model/salaryModel.php" />
         <option value="$PROJECT_DIR$/tpl/salarysearch1111.html" />
         <option value="$PROJECT_DIR$/tpl/js/salarysearch.js" />
-        <option value="$PROJECT_DIR$/tpl/js/index.js" />
         <option value="$PROJECT_DIR$/tpl/css/uikit.min.css" />
-        <option value="$PROJECT_DIR$/tpl/js/base.js" />
         <option value="$PROJECT_DIR$/tpl/question.html" />
         <option value="$PROJECT_DIR$/libs/Model/formModel.class.php" />
         <option value="$PROJECT_DIR$/framework/libs/public/public.php" />
@@ -185,9 +191,6 @@
         <option value="$PROJECT_DIR$/framework/libs/db/mysql.class.php" />
         <option value="$PROJECT_DIR$/tpl/index.html" />
         <option value="$PROJECT_DIR$/tpl/temp.html" />
-        <option value="$PROJECT_DIR$/libs/Model/inquiryModel.class.php" />
-        <option value="$PROJECT_DIR$/config.php" />
-        <option value="$PROJECT_DIR$/libs/Model/authModel.class.php" />
         <option value="$PROJECT_DIR$/data/cache/access_token.txt" />
         <option value="$PROJECT_DIR$/framework/libs/core/WEIXINURL.class.php" />
         <option value="$PROJECT_DIR$/libs/Model/accesstokenModel.class.php" />
@@ -200,6 +203,18 @@
         <option value="$PROJECT_DIR$/framework/pc.php" />
         <option value="$PROJECT_DIR$/framework/function/function.php" />
         <option value="$PROJECT_DIR$/libs/Controller/inquiryController.class.php" />
+        <option value="$PROJECT_DIR$/config.php" />
+        <option value="$PROJECT_DIR$/tpl/js/base.js" />
+        <option value="$PROJECT_DIR$/libs/Model/authModel.class.php" />
+        <option value="$PROJECT_DIR$/libs/Model/adminindexModel.class.php" />
+        <option value="$PROJECT_DIR$/tpl/adminindex.html" />
+        <option value="$PROJECT_DIR$/tpl/js/index.js" />
+        <option value="$PROJECT_DIR$/libs/Controller/adminindexController.class.php" />
+        <option value="$PROJECT_DIR$/libs/Controller/inquirelistController.class.php" />
+        <option value="$PROJECT_DIR$/libs/Model/inquiryModel.class.php" />
+        <option value="$PROJECT_DIR$/libs/Model/inquirylistModel.class.php" />
+        <option value="$PROJECT_DIR$/libs/Controller/inquirylistController.class.php" />
+        <option value="$PROJECT_DIR$/tpl/inquirelist.html" />
       </list>
     </option>
   </component>
@@ -215,8 +230,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="753" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -249,6 +264,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -414,7 +430,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -506,14 +521,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="753" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30517504" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30416667" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32742155" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.195" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19088016" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -573,34 +588,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/admin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.142858">
-          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/framework/libs/core/WEIXIN.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.5">
-          <caret line="14" column="86" selection-start-line="14" selection-start-column="86" selection-end-line="14" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/framework/libs/View/smatry/libs/Smarty.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tpl/js/notie.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="9" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tpl/js/require.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -664,13 +651,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tpl/adminindex.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/framework/libs/cache/cache.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -718,7 +698,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="132" column="9" selection-start-line="132" selection-start-column="9" selection-end-line="132" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -726,14 +705,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="56" column="33" selection-start-line="56" selection-start-column="33" selection-end-line="56" selection-end-column="33" />
-          <folding>
-            <marker date="1453341242050" expanded="true" signature="1748:1789" placeholder="insert into ${$table}... " />
-            <marker date="1453341242050" expanded="true" signature="1748:1790" placeholder="insert into ${$table}... " />
-            <marker date="1453341242050" expanded="true" signature="1748:1802" placeholder="insert into ${$table}... " />
-            <marker date="1453341242050" expanded="true" signature="1748:1803" placeholder="insert into ${$table}... " />
-            <marker date="1453341242050" expanded="true" signature="2207:2246" placeholder="update ${$ta... " />
-            <marker date="1453341242050" expanded="true" signature="2395:2424" placeholder="delete from " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -741,31 +712,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="32" column="51" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libs/Model/formModel.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="51" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="51" />
-          <folding>
-            <element signature="e#6#989#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tpl/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.931034">
-          <caret line="26" column="133" selection-start-line="26" selection-start-column="133" selection-end-line="26" selection-end-column="133" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tpl/inquire.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47690016">
-          <caret line="67" column="45" selection-start-line="0" selection-start-column="0" selection-end-line="200" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -780,39 +726,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="4" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tpl/createinquire.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="148.96552">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tpl/js/base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.62069">
-          <caret line="45" column="10" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tpl/js/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -820,7 +733,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.931034">
           <caret line="53" column="13" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -828,7 +740,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-13.689655">
           <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -836,36 +747,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.8461539">
           <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libs/Model/inquiryModel.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6896552">
-          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-          <folding>
-            <element signature="e#6#123#0#PHP" expanded="true" />
-            <marker date="1453363521168" expanded="true" signature="1748:2163" placeholder="SELECT jhkj_... jhkj_publishinquire" />
-            <marker date="1453363521168" expanded="true" signature="1748:2174" placeholder="SELECT jhkj_... jhkj_publishinquire" />
-            <marker date="1453363521168" expanded="true" signature="1748:2647" placeholder="SELECT jhkj_... jhkj_publishinquire" />
-            <marker date="1453363521168" expanded="true" signature="1909:2163" placeholder="select weixi... weixin_user" />
-            <marker date="1453363521168" expanded="true" signature="2846:2921" placeholder="select count... ${$this-&gt;_inquiryquestion}" />
-            <marker date="1453363521168" expanded="true" signature="2846:2936" placeholder="select count... ${$this-&gt;_answer}" />
-            <marker date="1453363521168" expanded="true" signature="2846:2937" placeholder="select count... ${$this-&gt;_answer}" />
-            <marker date="1453363521168" expanded="true" signature="2846:2938" placeholder="select count... ${$this-&gt;_answer}" />
-            <marker date="1453363521168" expanded="true" signature="2846:2940" placeholder="select count... ${$this-&gt;_answer}" />
-            <marker date="1453363521168" expanded="true" signature="3132:3145" placeholder="select * fro... " />
-            <marker date="1453363521168" expanded="true" signature="3132:3146" placeholder="select * fro... ${$this-&gt;_inquiryquestion}" />
-            <marker date="1453363521168" expanded="true" signature="3132:3190" placeholder="select * fro... ${$this-&gt;_inquiryquestion}" />
-            <marker date="1453363521168" expanded="true" signature="3132:3192" placeholder="select * fro... ${$this-&gt;_inquiryquestion}" />
-            <marker date="1453363521168" expanded="true" signature="3132:3208" placeholder="select * fro... ${$this-&gt;_inquiryquestion}" />
-            <marker date="1453363521168" expanded="true" signature="3132:3225" placeholder="select * fro... ${$this-&gt;_inquiryquestion}" />
-            <marker date="1453363521168" expanded="true" signature="3293:3332" placeholder="select * fro... " />
-            <marker date="1453363521168" expanded="true" signature="3293:3333" placeholder="select * fro... ${$this-&gt;_inquiryquestion}" />
-            <marker date="1453363521168" expanded="true" signature="3293:3361" placeholder="select * fro... ${$this-&gt;_inquiryquestion}" />
-            <marker date="1453363521168" expanded="true" signature="3293:3362" placeholder="select * fro... ${$this-&gt;_inquiryquestion}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -873,18 +754,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.275862">
           <caret line="18" column="38" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="38" />
-          <folding>
-            <marker date="1453442941350" expanded="true" signature="226:286" placeholder="select * fro... ${$this-&gt;_table}" />
-            <marker date="1453442941350" expanded="true" signature="530:551" placeholder="select count... ${$this-&gt;_table}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libs/Model/authModel.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.586207">
-          <caret line="23" column="77" selection-start-line="23" selection-start-column="68" selection-end-line="23" selection-end-column="77" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -892,6 +761,60 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.275862">
           <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Model/indexModel.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Controller/ajaxController.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="49" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Controller/inquiryController.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="43" column="22" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/framework/function/function.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/framework/pc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="46" column="32" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Controller/salaryController.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -904,83 +827,163 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/Model/indexModel.class.php">
+    <entry file="file://$PROJECT_DIR$/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.586207">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <marker date="1451541095208" expanded="true" signature="238:300" placeholder="select * fro... ${$this-&gt;_table}" />
-            <marker date="1451541095208" expanded="true" signature="398:419" placeholder="select count... ${$this-&gt;_table}" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tpl/js/base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Model/formModel.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="29.464285">
+          <caret line="42" column="51" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Model/authModel.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.0357144">
+          <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/libs/Model/salaryModel.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.230769">
-          <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+        <state vertical-scroll-proportion="-3.7857144">
+          <caret line="11" column="27" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="27" />
           <folding>
-            <marker date="1453451256236" expanded="true" signature="259:387" placeholder="SELECT mouth... ${$this-&gt;dtailtable}" />
-            <marker date="1453451256236" expanded="true" signature="524:563" placeholder="SELECT filed... " />
-            <marker date="1453451256236" expanded="true" signature="524:659" placeholder="SELECT * FRO... ${$this-&gt;filetable}" />
-            <marker date="1453451256236" expanded="true" signature="1114:1664" placeholder="SELECT * FRO... ${$this-&gt;filetable}" />
+            <marker date="1453473369669" expanded="true" signature="259:387" placeholder="SELECT year,... " />
+            <marker date="1453473369669" expanded="true" signature="524:659" placeholder="SELECT filed... ${$this-&gt;_filetable}" />
+            <marker date="1453473369669" expanded="true" signature="1114:1664" placeholder="SELECT filed... ${$this-&gt;_filetable}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libs/Controller/ajaxController.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.2222223">
-          <caret line="12" column="73" selection-start-line="12" selection-start-column="73" selection-end-line="12" selection-end-column="73" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/libs/Controller/indexController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="8.142858">
-          <caret line="31" column="20" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
+        <state vertical-scroll-proportion="-18.714285">
+          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
+    <entry file="file://$PROJECT_DIR$/tpl/inquire.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.827586">
-          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+        <state vertical-scroll-proportion="17.642857">
+          <caret line="67" column="45" selection-start-line="0" selection-start-column="0" selection-end-line="200" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/framework/pc.php">
+    <entry file="file://$PROJECT_DIR$/tpl/createinquire.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.2413793">
-          <caret line="46" column="32" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
+        <state vertical-scroll-proportion="-14.928572">
+          <caret line="124" column="35" selection-start-line="118" selection-start-column="24" selection-end-line="124" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/framework/function/function.php">
+    <entry file="file://$PROJECT_DIR$/tpl/adminindex.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.0689654">
-          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        <state vertical-scroll-proportion="-8.362069">
+          <caret line="95" column="20" selection-start-line="95" selection-start-column="20" selection-end-line="95" selection-end-column="84" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/Controller/salaryController.class.php">
+    <entry file="file://$PROJECT_DIR$/tpl/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.8461537">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state vertical-scroll-proportion="-0.6785714">
+          <caret line="26" column="37" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/Controller/inquiryController.class.php">
+    <entry file="file://$PROJECT_DIR$/tpl/js/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5225653">
-          <caret line="50" column="5" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
+        <state vertical-scroll-proportion="2.5333333">
+          <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Controller/adminindexController.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.637931">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Model/adminindexModel.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.107143">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="27" selection-end-column="1" />
+          <folding>
+            <element signature="e#6#86#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Model/inquirylistModel.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.857142">
+          <caret line="16" column="61" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="61" />
+          <folding>
+            <element signature="e#6#86#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tpl/inquirelist.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.464286">
+          <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Model/inquiryModel.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.25">
+          <caret line="86" column="32" selection-start-line="86" selection-start-column="32" selection-end-line="86" selection-end-column="32" />
+          <folding>
+            <element signature="e#7#124#0#PHP" expanded="false" />
+            <marker date="1453643728485" expanded="true" signature="1782:2212" placeholder="SELECT * fro... jhkj_publishinquire" />
+            <marker date="1453643728485" expanded="true" signature="1782:2828" placeholder="SELECT * fro... jhkj_publishinquire" />
+            <marker date="1453643728485" expanded="true" signature="1782:2834" placeholder="SELECT jhkj_... jhkj_publishinquire" />
+            <marker date="1453643728485" expanded="true" signature="1782:2870" placeholder="SELECT jhkj_... jhkj_publishinquire" />
+            <marker date="1453643728485" expanded="true" signature="1934:2212" placeholder="select weixi... weixin_user" />
+            <marker date="1453643728485" expanded="true" signature="2790:2828" placeholder="SELECT jhkj_... jhkj_publishinquire" />
+            <marker date="1453643728485" expanded="true" signature="3079:4124" placeholder="SELECT jhkj_... jhkj_publishinquire" />
+            <marker date="1453643728485" expanded="true" signature="3079:4162" placeholder="SELECT jhkj_... jhkj_publishinquire" />
+            <marker date="1453643728485" expanded="true" signature="3079:4167" placeholder="SELECT jhkj_... jhkj_publishinquire" />
+            <marker date="1453643728485" expanded="true" signature="3231:3521" placeholder="select weixi... weixin_user" />
+            <marker date="1453643728485" expanded="true" signature="4372:4472" placeholder="select count... ${$this-&gt;_answer}" />
+            <marker date="1453643728485" expanded="true" signature="4679:4780" placeholder="select * fro... ${$this-&gt;_inquiryquestion}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Controller/inquirylistController.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.59375">
+          <caret line="22" column="74" selection-start-line="22" selection-start-column="60" selection-end-line="22" selection-end-column="74" />
+          <folding>
+            <element signature="e#6#86#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
