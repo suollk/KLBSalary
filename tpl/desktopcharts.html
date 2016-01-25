@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/uikit.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/components/form-advanced.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/components/sortable.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/components/upload.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/components/progress.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/components/notify.min.css" />
+		<style type="text/css">
+			.border {
+				border: 1px solid #E8E8E8;
+			}
+			
+			.borderblack {
+				border: 1px solid #BBBABA;
+			}
+			
+			.uk-form input[type=text] {
+				border: 1px solid #E8E8E8;
+			}
+			
+			#questionlist {
+				overflow-y: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="uk-width-5-6 uk-container-center">
+			<form class="uk-form">
+				<fieldset class="uk-margin-small-top" data-uk-margin="">
+					<legend>
+						<div class="uk-grid uk-margin-small-bottom" data-uk-grid-margin="">
+							<div class="uk-width-3-4">
+								<div class="uk-form-icon uk-width-1-1">
+									<i class="uk-icon-sticky-note"></i>
+									<input id="maintitle" type="text" class="uk-border-rounded uk-width-1-1" placeholder="调查问卷标题">
+								</div>
+							</div>
+					</legend>
+				</fieldset>
+				<div class="uk-width-1-1  uk-margin-small-top">
+					<div id="questionlist" class="uk-panel uk-panel-box border">
+						<!--最外层的div-->
+						<div class="uk-panel uk-container-center">
+							<ul id="questionlistul" class="uk-sortable uk-grid" data-uk-sortable="{handleClass:'uk-sortable-handle'}">
+
+							</ul>
+						</div>
+					</div>
+				</div>
+			</form>
+
+			<div id="modal-spinner" class="uk-modal" aria-hidden="true" style="display: none; overflow-y: scroll;">
+				<div class="uk-modal-dialog">
+					<div class="uk-modal-spinner"></div>
+				</div>
+			</div>
+			</div>
+			<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+			<script type="text/javascript" src="js/uikit.min.js"></script>
+			<script type="text/javascript" src="js/jsviews.min.js"></script>
+			<script type="text/javascript" src="js/components/sortable.min.js"></script>
+			<script type="text/javascript" src="js/components/upload.min.js"></script>
+			<script type="text/javascript" src="js/components/notify.min.js"></script>
+			<script type="text/javascript" src="js/base.js"></script>
+			<script type="text/javascript">
+				$(function() {
+					//动态设定高度
+					$("#questionlist").innerHeight($(window).innerHeight() - $('#questionlist')[0].offsetTop - $(window).scrollTop() - 6);
+					$(window).resize(function() {
+						$("#questionlist").innerHeight($(window).innerHeight() - $('#questionlist')[0].offsetTop - $(window).scrollTop() - 6);
+					});
+					//点击创建按钮事件
+					$("#maintitle").on("change", function() {
+						$(this).removeClass("uk-form-danger");
+					})
+					$("#submitall").on("click", function() {
+							//优先判断标题是否为空
+							if ($("#maintitle").val() == "") {
+								UIkit.notify({
+									message: "<i class='uk-icon-close'></i><br/>调查问卷标题标题为空!!",
+									status: 'warning',
+									timeout: 3000,
+									pos: 'top-center'
+								});
+								$("#maintitle").addClass("uk-form-danger");
+								return;
+							}
+							if ($(".item").length == "0") {
+								UIkit.notify({
+									message: "<i class='uk-icon-close'></i><br/>请至少有一道题目!",
+									status: 'warning',
+									timeout: 3000,
+									pos: 'top-center'
+								});
+								return;
+							}
+							//判断是否有Input为空
+							$("input[type='text']").each(function(index) {
+								if ($(this).val() == "") {
+									$(this).addClass("uk-form-danger");
+								}
+							})
+							if ($("input.uk-form-danger").length > 0) {
+								UIkit.notify({
+									message: "<i class='uk-icon-close'></i><br/>请检查题目中的标题或者选项!有" + $("input.uk-form-danger").length + "选项为空!!",
+									status: 'warning',
+									timeout: 3000,
+									pos: 'top-center'
+								});
+								return;
+							}
+							//检测单选多选必须有一个选项
+							//检测图片选择题必须大于1张图
+							$(".item").each(function(index) {
+									if ($(this).attr("data-question") == "0" || $(this).attr("data-question") == "1") {
+										if ($(this).find("input[type='text']").length == "1") {
+											UIkit.notify({
+												message: "<i class='uk-icon-close'></i><br/>[" + $(this).attr("data-name") + "]选择题的选项至少为1个!",
+												status: 'warning',
+												timeout: 3000,
+												pos: 'top-center'
+											});
+											return false;
+										}
+									}
+									if ($(this).attr("data-question") == "3" || $(this).attr("data-question") == "4") {
+										if ($(this).find("img").length == "0") {
+											UIkit.notify({
+												message: "<i class='uk-icon-close'></i><br/>[" + $(this).attr("data-name") + "]图片选项题至少为1张图片!",
+												status: 'warning',
+												timeout: 3000,
+												pos: 'top-center'
+											});
+											return false;
+										}
+									}
+								})
+								//-----检查完毕开始组装json数据------//
+								//分两条json发送  一个为题目  一条为选项  问卷标题用参数返回
+								//问卷标题
+							var modal = UIkit.modal.blockUI('<p class="uk-text-large uk-text-bold uk-text-center"><i class="uk-icon-spinner"></i>请稍后,正在处理数据...</p>');
+							modal.show();
+							var mianid = guid();
+							var maintitle = '{"id":"' + mianid + '","date":"' + Math.round(new Date().getTime() / 1000) + '","inquirename":"' + $("#maintitle").val() + '"}';
+							//题目json
+							var questionjson = "";
+							//选项json
+							var optionsjson = "";
+							$(".item").each(function(index) {
+								console.log(index);
+								questionjson = questionjson + '{"id":"' + this.id + '","inquireid":"' + mianid + '","sortnum":"' + index + '","questionname":"' + $("#" + this.id + "maintitle").val() + '","type":"' + $(this).attr("data-question") + '","maxselect":"' + '","canselsame":""},';
+								var tempid = this.id;
+								if ($(this).attr("data-question") == "0" || $(this).attr("data-question") == "1") {
+									$("#" + tempid + "list .uk-form-row input[type='text']").each(function(index) {
+										optionsjson = optionsjson + '{"id":"' + guid() + '","questionid":"' + tempid + '","sortnum":"' + index + '","optiontitle":"' + $(this).val() + '","imgsrc":" ' + '","imgdescribe":""},';
+									})
+								}
+								if ($(this).attr("data-question") == "3" || $(this).attr("data-question") == "4") {
+									$("#" + tempid + "list .imgseldiv").each(function(index) {
+										optionsjson = optionsjson + '{"id":"' + guid() + '","questionid":"' + tempid + '","sortnum":"' + index + '","optiontitle":"' + $(this).find("input[type=text]").val() + '","imgsrc":"' + $(this).find("img").attr("data-src") + '","imgdescribe":"' + $(this).find("textarea").val() + '"},';
+									})
+								}
+							})
+							questionjson = '{"data":[' + questionjson.substring(0, questionjson.length - 1) + "]}";
+							optionsjson = '{"data":[' + optionsjson.substring(0, optionsjson.length - 1) + "]}";
+							//---------json数据组装完毕------//
+							//发送数据
+							$.ajax({
+								type: "post",
+								async: true,
+								url: baseurlno + '?controller=inquiry&method=createinquiry&maintitle=' + maintitle + '&questionjson=' + questionjson + '&optionsjson=' + optionsjson,
+								data: {
+									maintitle: maintitle,
+									questionjson: questionjson,
+									optionsjson: optionsjson
+								},
+								dataType: "jsonp",
+								jsonp: "jsoncallback1",
+								success: function(json) {
+									modal.hide();
+									if (json["result"].length > 0) {
+										UIkit.notify({
+											message: "<i class='uk-icon-close'></i><br/>" + json["result"],
+											status: 'danger',
+											timeout: 3000,
+											pos: 'top-center'
+										});
+									} else {
+										UIkit.notify({
+											message: "<i class='uk-icon-close'></i><br/>" + $("#maintitle").val() + "问卷创建成功!",
+											status: 'success',
+											timeout: 3000,
+											pos: 'top-center'
+										});
+										$("#maintitle").val("");
+										document.getElementById("maintitle").value = '';
+										$("#questionlistul").empty();
+									}
+								},
+								error: function() {
+									modal.hide();
+									UIkit.notify({
+										message: "<i class='uk-icon-close'></i><br/>网络出错!",
+										status: 'danger',
+										timeout: 3000,
+										pos: 'top-center'
+									});
+								}
+							});
+							console.log(maintitle);
+							console.log(questionjson);
+							console.log(optionsjson);
+							//						modal.hide();
+						})
+						//添加问题按钮
+					$("#addquestionul li").on("click", function() {
+						if (typeof($(this).attr("data-type")) == "undefined") {
+							return;
+						}
+						var uuid = guid();
+						var tempjson = '{"num":"' + $(".item").length + '","uuid":"' + uuid + '","questiontype":"' + $(this).attr("data-type") + '"}';
+						tempjson = JSON.parse(tempjson);
+						$.views.settings.allowCode = true;
+						switch ($(this).attr("data-type")) {
+							//单选
+							case "0":
+								$("#questionlistul").append($("#redioquestion").render(tempjson));
+								break;
+								//多选
+							case "1":
+								$("#questionlistul").append($("#checkboxquestion").render(tempjson));
+								break;
+								//问答
+							case "2":
+								$("#questionlistul").append($("#textareaquestion").render(tempjson));
+								break;
+								//图片单选
+							case "3":
+								$("#questionlistul").append($("#oneimgquestion").render(tempjson));
+								resetimgupload(uuid);
+								break;
+								//图片多选
+							case "4":
+								$("#questionlistul").append($("#muiltimgquestion").render(tempjson));
+								resetimgupload(uuid);
+								break;
+							default:
+								break;
+						}
+						resetaukclose(uuid);
+						resetasuccess(uuid);
+						$('#questionlist').scrollTop($('#questionlist')[0].scrollHeight);
+						$("#" + uuid + " input").on("change", function() {
+							$(this).removeClass("uk-form-danger");
+						})
+					})
+
+					function aukcloseclick() {
+						if (typeof($(this).attr("data-type")) == "undefined") {
+							return;
+						}
+						switch ($(this).attr("data-type")) {
+							case "li":
+								$("#" + $(this).attr("data-id")).remove();;
+								break;
+							case "div":
+								$(this).parent().remove();
+								break;
+							default:
+								break;
+						}
+					}
+
+					function resetaukclose(uuid) {
+						$("#" + uuid + " a.uk-close").on("click", function() {
+							if (typeof($(this).attr("data-type")) == "undefined") {
+								return;
+							}
+							switch ($(this).attr("data-type")) {
+								case "li":
+									$("#" + $(this).attr("data-id")).remove();;
+									break;
+								case "div":
+									$(this).parent().remove();
+									break;
+								default:
+									break;
+							}
+						});
+					}
+
+					function resetasuccess(uuid) {
+						$("#" + uuid + " a.uk-button-success").on("click", function() {
+							if (typeof($(this).attr("data-id")) == "undefined") {
+								return;
+							}
+							var tempjson = '{"uuid":"' + $(this).attr("data-id") + '"}';
+							tempjson = JSON.parse(tempjson);
+							switch ($(this).attr("data-question")) {
+								case "0":
+									$("#" + $(this).attr("data-id") + "list").append($("#oneredioinput").render(tempjson));
+									break;
+								case "1":
+									$("#" + $(this).attr("data-id") + "list").append($("#onecheckboxnput").render(tempjson));
+									break;
+								default:
+									break;
+							}
+							resetaukclose($(this).attr("data-id") + "list");
+						})
+					}
+
+					function resetimgupload(uuid) {
+						var progressbar = $("#progressbar" + uuid),
+							bar = progressbar.find('.uk-progress-bar'),
+							settings = {
+								action: baseurlno + '?controller=inquiry&method=imgupload', // 上传路径 url
+								allow: '*.(jpg|jpeg|gif|png)', // 只允许上传图片
+								single: false,
+								type: "json",
+								loadstart: function() {
+									bar.css("width", "0%").text("0%");
+									progressbar.removeClass("uk-hidden");
+								},
+								progress: function(percent) {
+									percent = Math.ceil(percent);
+									bar.css("width", percent + "%").text(percent + "%");
+								},
+								allcomplete: function(response) {
+									bar.css("width", "100%").text("100%");
+									setTimeout(function() {
+										progressbar.addClass("uk-hidden");
+									}, 250);
+									if (typeof response == "object") {
+										for (var i = 0; i < response.length; i++) {
+											var errormg = "";
+											if (response[i]["msg"] != "") {
+												errormg = errormg + response[i]["msg"] + "<br/>";
+											}
+											if (errormg != "") {
+												UIkit.notify({
+													message: errormg,
+													status: 'warning',
+													timeout: 3000,
+													pos: 'top-center'
+												});
+												return;
+											} else {
+												$("#" + uuid + "list").append($("#imgdisplay").render(response));
+												$("#" + uuid + "list img").each(function() {
+													var maxWidth = 100; // 图片最大宽度
+													var maxHeight = 100; // 图片最大高度   
+													var ratio = 0; // 缩放比例  
+													var width = $(this).width(); // 图片实际宽度   
+													var height = $(this).height(); // 图片实际高度     // 检查图片是否超宽   
+													if (width > maxWidth) {
+														ratio = maxWidth / width; // 计算缩放比例       
+														$(this).css("width", maxWidth); // 设定实际显示宽度       
+														height = height * ratio; // 计算等比例缩放后的高度       
+														$(this).css("height", height); // 设定等比例缩放后的高度   
+													} // 检查图片是否超高  
+													if (height > maxHeight) {
+														ratio = maxHeight / height; // 计算缩放比例      
+														$(this).css("height", maxHeight); // 设定实际显示高度       
+														width = width * ratio; // 计算等比例缩放后的高度       
+														$(this).css("width", width); // 设定等比例缩放后的高度   
+													}
+												});
+												resetaukclose(uuid);
+											}
+										}
+									} else {
+										UIkit.notify({
+											message: "<i class='uk-icon-close'></i><br/>服务器解析错误!返回数据有误!错误代码9!",
+											status: 'warning',
+											timeout: 3000,
+											pos: 'top-center'
+										});
+									}
+								},
+								notallowed: function(file, settings) {
+									UIkit.notify({
+										message: "<i class='uk-icon-close'></i><br/>你上传的文件类型有误!只允许上传<br/>jpg|jpeg|gif|png",
+										status: 'warning',
+										timeout: 3000,
+										pos: 'top-center'
+									});
+								}
+							};
+						var select = UIkit.uploadSelect($("#upload-select" + uuid), settings),
+							drop = UIkit.uploadDrop($("#upload-drop" + uuid), settings);
+					}
+				});
+			</script>
+
+			<!--单选多选模版-->
+			<script id="selcharts" type="text/x-jsrender">
+				<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}" data-name="问题{{:num}}">
+					<div class="uk-width-1-1 borderblack  uk-magin-bottom">
+						<div id="{{:uuid}}list" class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
+							<legend>
+								<input type="text" id="{{:uuid}}maintitle" class="uk-border-rounded uk-width-1-1" placeholder="单选题目标题">
+							</legend>
+
+						</div>
+					</div>
+				</li>
+			</script>
+			<!--单选多选每个选项模版-->
+			<script id="onetemp" type="text/x-jsrender">
+				<div class="uk-form-row">
+					<div class="uk-progress uk-progress-striped">
+						<div class="uk-progress-bar" style="width: {{:num}}%;">{{:optiontitle}}</div>
+					</div>
+				</div>
+			</script>
+
+			<!--图片单选多选模版-->
+			<script id="imgchartsdesktop" type="text/x-jsrender">
+				<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}" data-name="问题{{:num}}">
+					<div class="uk-width-1-1 borderblack  uk-magin-bottom">
+						<div class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
+							<legend>
+								<input type="text" id="{{:uuid}}maintitle" class="uk-border-rounded uk-width-1-1" placeholder="图片单选题标题">
+							</legend>
+							<div id="{{:uuid}}list" class="uk-grid uk-margin-large-left uk-width-1-1">
+								<table class="uk-table uk-table-striped uk-table-condensed uk-text-nowrap ">
+									<thead>
+										<tr>
+											<th class="uk-width-1-5 uk-text-center "></th>
+											<th class="uk-width-4-5 uk-text-center "></th>
+										</tr>
+									</thead>
+									<tbody id="tbodylist ">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</li>
+			</script>
+			
+			<!--图片单选多选模版-->
+			<script id="imgchartsmoblie" type="text/x-jsrender">
+				<li class="uk-width-1-1 item  uk-margin-bottom" id="{{:uuid}}" data-question="{{:questiontype}}" data-name="问题{{:num}}">
+					<div class="uk-width-1-1 borderblack  uk-magin-bottom">
+						<div class="uk-panel uk-panel-box uk-container-center uk-margin-small-top">
+							<legend>
+								<input type="text" id="{{:uuid}}maintitle" class="uk-border-rounded uk-width-1-1" placeholder="图片单选题标题">
+							</legend>
+							<div id="{{:uuid}}list" class="uk-grid uk-margin-large-left uk-width-1-1">
+								<table class="uk-table uk-table-striped uk-table-condensed uk-text-nowrap ">
+									<thead>
+										<tr>
+											<th class="uk-width-1-5 uk-text-center "></th>
+											<th class="uk-width-4-5 uk-text-center "></th>
+										</tr>
+									</thead>
+									<tbody id="tbodylist ">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</li>
+			</script>
+
+			<!--图片单个模版-->
+			<script id="oneimg" type="text/x-jsrender">
+				<tr>
+					<td class="uk-text-center"><img src="../data/imgfiles/{{:imgsrc}}" /></td>
+					<td class="uk-text-center">
+						<div class="uk-progress uk-progress-striped">
+							<div class="uk-progress-bar" style="width: {{:num}}%;">{{:optiontitle}}</div>
+						</div>
+					</td>
+				</tr>
+			</script>
+
+			<!--新增图片模版-->
+
+	</body>
+
+</html>

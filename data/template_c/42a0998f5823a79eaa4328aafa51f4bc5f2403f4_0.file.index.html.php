@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2016-01-22 07:24:11
+<?php /* Smarty version 3.1.27, created on 2016-01-25 02:27:12
          compiled from "tpl\index.html" */ ?>
 <?php
-/*%%SmartyHeaderCode:2204956a1cb0bea7eb4_05738017%%*/
+/*%%SmartyHeaderCode:1561756a579f0ab4e76_18662129%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -9,11 +9,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '42a0998f5823a79eaa4328aafa51f4bc5f2403f4' => 
     array (
       0 => 'tpl\\index.html',
-      1 => 1453443593,
+      1 => 1453685229,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '2204956a1cb0bea7eb4_05738017',
+  'nocache_hash' => '1561756a579f0ab4e76_18662129',
   'variables' => 
   array (
     'avatarimg' => 0,
@@ -23,13 +23,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_56a1cb0bf02f83_47577186',
+  'unifunc' => 'content_56a579f0aec7e6_91207444',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_56a1cb0bf02f83_47577186')) {
-function content_56a1cb0bf02f83_47577186 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_56a579f0aec7e6_91207444')) {
+function content_56a579f0aec7e6_91207444 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '2204956a1cb0bea7eb4_05738017';
+$_smarty_tpl->properties['nocache_hash'] = '1561756a579f0ab4e76_18662129';
 ?>
 <!DOCTYPE html>
 <html class="uk-height-1-1 uk-width-1-1">
@@ -41,7 +41,7 @@ $_smarty_tpl->properties['nocache_hash'] = '2204956a1cb0bea7eb4_05738017';
 		<meta http-equiv="Pragma" content="no-cache,no-store,must-revalidate">
 		<meta http-equiv="Cache-control" content="no-cache,no-store,must-revalidate">
 		<meta http-equiv="Cache" content="no-cache,no-store,must-revalidate">
-		<title>康克保工资查询</title>
+		<title>康乐保工资查询</title>
 		<link rel="stylesheet" href="tpl/css/uikit.min.css" />
 		<link rel="stylesheet" type="text/css" href="tpl/css/components/notify.min.css" />
 		<style>

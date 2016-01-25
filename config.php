@@ -20,11 +20,11 @@ $config = array(
 //   数据库配置参数
 "dbconfig" => array(
 //   数据库IP地址
-"dbhost" => "localhost",
+"dbhost" => "192.168.10.109",
 //  数据库用户名
 "dbuser" => "root",
 //  数据库密码
-"dbpsw" => "",
+"dbpsw" => "Zhylwdm3",
 //  数据库名
 "dbname" => "kanglebao",
 //   数据库默认字符集

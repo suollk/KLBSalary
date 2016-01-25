@@ -6,7 +6,7 @@
  * Time: 21:32
  */
 
-class adminindexModel{
+class inquirylistModel{
     function index($userid){
 //      获取用户数据
         $inquireM = M("inquiry");
@@ -14,7 +14,11 @@ class adminindexModel{
 
         $inquirylistdata = $inquireM->gethistoryinquirylist($userid);
 //      返回新增问卷以及历史问卷
-        return '{"inquiry":"'.$inquirydata.'","inquiryhistory":"'.$inquirylistdata.'"}';
+
+//        $inquirydata = count($inquirydata)=="0"?"nodata":$inquirydata;
+//        $inquirylistdata = count($inquirydata)=="0"?"nodata":$inquirylistdata;
+
+        return array("inquiry"=>$inquirydata,"inquiryhistory"=>$inquirylistdata);
     }
 
 

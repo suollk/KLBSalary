@@ -7,7 +7,7 @@
  */
 
 
-class inquirelistController {
+class inquirylistController {
 
     public function index() {
         //初始化数据   获取userid usercode   二次改造出一个人员信息类
@@ -17,11 +17,17 @@ class inquirelistController {
             exit ;
         }
 
+        if(isset($_GET["from"])){
+            VIEW::assign(array("modal"=>"show"));
+        }else{
+            VIEW::assign(array("modal"=>""));
+        }
+
         $inquirylistM = M('inquirylist');
         $mydata = $inquirylistM->index($userid);
 
         VIEW::assign(array('inquiry' => $mydata['inquiry'],'inquiryhistory' => $mydata['inquiryhistory']));
-        VIEW::display('inquirylist.html');
+        VIEW::display('inquirelist.html');
     }
 
 }

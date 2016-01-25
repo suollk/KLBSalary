@@ -58,7 +58,7 @@ class inquiryModel
     function getinquirylist($userid)
     {
         //通过人员id获取人员是否有新的或者在规定时间内未完成的调查问卷  ----- 菜单页需要的函数
-        $sql = 'SELECT jhkj_publishinquire.inquireid,jhkj_publishinquire.inquirename,jhkj_publishinquire.enddate from jhkj_publishinquire,jhkj_answer,
+        $sql = 'SELECT '.$this->_publishinquire.'.inquireid,'.$this->_publishinquire.'.inquirename,'.$this->_publishinquire.'.enddate from '.$this->_publishinquire.',jhkj_answer,
                 (select weixin_user.userid,weixin_user.department,
                 weixin_taguser.tagid
                 from weixin_user
@@ -66,14 +66,14 @@ class inquiryModel
                 weixin_taguser
                 on  weixin_taguser.userid=weixin_user.userid
                 and weixin_user.userid="'.$userid.'") templimit
-                WHERE jhkj_answer.userid=""
-                AND jhkj_publishinquire.begindate<NOW()
-                AND jhkj_publishinquire.enddate>NOW()
-                AND jhkj_publishinquire.id!=jhkj_answer.inquireid
-                AND ((jhkj_publishinquire.valuetype="1" AND templimit.userid=jhkj_publishinquire.valueid)
-                OR (jhkj_publishinquire.valuetype="2" AND templimit.department=jhkj_publishinquire.valueid)
-                OR (jhkj_publishinquire.valuetype="3" AND templimit.tagid=jhkj_publishinquire.valueid))
-                group by jhkj_publishinquire.inquireid order by jhkj_publishinquire.enddate desc';
+                WHERE '.$this->_answer.'.userid=""
+                AND '.$this->_publishinquire.'.begindate<NOW()
+                AND '.$this->_publishinquire.'.enddate>NOW()
+                AND '.$this->_publishinquire.'.id!=jhkj_answer.inquireid
+                AND (('.$this->_publishinquire.'.valuetype="1" AND templimit.userid='.$this->_publishinquire.'.valueid)
+                OR ('.$this->_publishinquire.'.valuetype="2" AND templimit.department='.$this->_publishinquire.'.valueid)
+                OR ('.$this->_publishinquire.'.valuetype="3" AND templimit.tagid='.$this->_publishinquire.'.valueid))
+                group by '.$this->_publishinquire.'.inquireid order by '.$this->_publishinquire.'.enddate desc';
 
         return DB::findAll($sql);
     }
@@ -89,7 +89,7 @@ class inquiryModel
                 weixin_taguser
                 on  weixin_taguser.userid=weixin_user.userid
                 and weixin_user.userid="'.$userid.'") templimit
-                WHERE jhkj_answer.userid=""
+                WHERE '.$this->_answer.'.userid=""
                 AND jhkj_publishinquire.begindate<NOW()
                 AND jhkj_publishinquire.enddate>NOW()
                 AND jhkj_publishinquire.id=jhkj_answer.inquireid
@@ -144,9 +144,32 @@ class inquiryModel
         // 获取需要的数据 如果userid为空则代表为后台查询的
         // 图表使用web自己生成  选出的使用百分的进度条表示 后面加票数
 
-        //第一步是获取参加的总人数----
+        //第一步是获取参加的此调查问卷的总人数
 
 
+        //遍历调查问卷下的每一个题目的回答人数
+
+
+        //遍历每一个题目的每一个选项的占比
+
+        //组合生成json数组或者数组填充
+    }
+
+    function insertuseranswer($userid){
+        //ajax返回一个串
+        if (isset($_GET["backjson"])) {
+            $answerArr = object_array(json_decode($_GET["backjson"]));
+
+        for ($j = 0; $j < count($answerArr); $j++) {
+                  $inquiryquestionArr[$j]["userid"] = $userid;
+        }
+        $answerid = "";
+            foreach ($answerArr["data"] as $key => $value) {
+                $answerid = $answerid . DB::insert($this->_answer, $value) . ",";
+            }
+        }
+
+        return "";
     }
 
 }

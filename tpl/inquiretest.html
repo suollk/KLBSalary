@@ -12,17 +12,24 @@
 		<title>{[$title]}</title>
 		<link rel="stylesheet" type="text/css" href="tpl/css/uikit.min.css" />
 		<link rel="stylesheet" type="text/css" href="tpl/css/components/form-advanced.min.css"/>
+		<link rel="stylesheet" type="text/css" href="tpl/css/components/notify.min.css" />
+		<style>
+			.imgdiv{
+				border: 1px solid #f0ead8;
+			}
+		</style>
+
 	</head>
 	<body>
 		<!--题目浏览区-->
-		<div id="inquirecontent" class="uk-width-1-1">
+		<div id="inquirecontent" data-inquireid="{[$inquireid]}" class="uk-width-1-1">
 			<div class="uk-panel uk-panel-box">
 				<form class="uk-form">
 					{[foreach from=$datainfo key=myId item=dataArr]}
 					{[if $dataArr.sortnum=="0"]}
-					<div data-sortnum="{[$dataArr.sortnum]}" data-id="{[$dataArr.id]}" data-maxselect="{[$dataArr.maxselect]}" data-canselsame="{[$dataArr.canselsame]}" class="question">
+					<div id="{[$dataArr.id]}question" data-inquireid="{[$inquireid]}" data-sortnum="{[$dataArr.sortnum]}" data-id="{[$dataArr.id]}" data-maxselect="{[$dataArr.maxselect]}" data-type="{[$dataArr.type]}" data-canselsame="{[$dataArr.canselsame]}" class="question">
 					{[else]}
-					<div data-sortnum="{[$dataArr.sortnum]}" data-id="{[$dataArr.id]}" data-maxselect="{[$dataArr.maxselect]}" data-canselsame="{[$dataArr.canselsame]}" class="question uk-hidden">
+					<div id="{[$dataArr.id]}question" data-inquireid="{[$inquireid]}" data-sortnum="{[$dataArr.sortnum]}" data-id="{[$dataArr.id]}" data-maxselect="{[$dataArr.maxselect]}" data-type="{[$dataArr.type]}" data-canselsame="{[$dataArr.canselsame]}" class="question uk-hidden">
 					{[/if]}
 						<fieldset>
 							<legend>{[$dataArr.questionname]}</legend>
@@ -38,9 +45,9 @@
 										<input type="checkbox" name="{[$optionArr.questionid]}" value="{[$optionArr.id]}"> {[$optionArr.optiontitle]}</label>
 								</div>
 								{[/foreach]} {[elseif $dataArr.type=="2"]}
-								<textarea class="uk-width-1-1" data-id="{[$dataArr.id]}" data-parent="{[$dataArr.id]}" rows="20"></textarea>
+								<textarea class="uk-width-1-1" data-id="{[$dataArr.id]}" rows="20"></textarea>
 								{[elseif $dataArr.type=="3"]}
-								<div data-uk-button-radio>
+								<div>
 									<div class="uk-grid">
 										{[foreach from=$dataArr.data key=myId item=optionArr]}
 										<div class="uk-width-1-2">
@@ -49,7 +56,7 @@
 													<img src="data/imgfiles/{[$optionArr.imgsrc]}" class="uk-vertical-align-middle uk-align-center" />
 												</div>
 												<p class="uk-article-meta uk-text-center uk-text-large">{[$optionArr.optiontitle]}</p>
-												<a class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-border-rounded">投票给他</a>
+												<a data-check="false" data-optionid="{[$optionArr.id]}" data-questionid="{[$optionArr.questionid]}" class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-border-rounded">投票给Ta</a>
 											</div>
 										</div>
 										{[/foreach]}
@@ -68,7 +75,7 @@
 									</div>
 								</div>
 								{[/foreach]} {[elseif $dataArr.type=="4"]}
-								<div data-uk-button-checkbox>
+								<div>
 									<div class="uk-grid">
 										{[foreach from=$dataArr.data key=myId item=optionArr]}
 										<div class="uk-width-1-2">
@@ -77,7 +84,7 @@
 													<img src="data/imgfiles/{[$optionArr.imgsrc]}" class="uk-vertical-align-middle uk-align-center" />
 												</div>
 												<p class="uk-article-meta uk-text-center uk-text-large">{[$optionArr.optiontitle]}</p>
-												<a class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-border-rounded">投票给他</a>
+												<a data-check="false" data-optionid="{[$optionArr.id]}" data-questionid="{[$optionArr.questionid]}" class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-border-rounded">投票给Ta</a>
 											</div>
 										</div>
 										{[/foreach]}
@@ -117,11 +124,30 @@
 						<button class="uk-button-primary uk-button-large uk-width-1-1 uk-border-rounded">下一题</button>
 					</div>
 					<div class="uk-width-1-2 uk-hidden" id="btnsubmit">
-						<button class="uk-float-right uk-button-primary uk-button-large uk-width-1-1 uk-border-rounded">提交</button>
+						<button id="sure" class="uk-float-right uk-button-primary uk-button-large uk-width-1-1 uk-border-rounded" data-uk-modal="{target:'#modasubmit'}">提交</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div id="modasubmit" class="uk-modal">
+			<div class="uk-modal-dialog">
+				<button type="button" class="uk-modal-close uk-close"></button>
+				<div class="uk-modal-header">
+					<h2>是否提交?</h2>
+				</div>
+				<div class="uk-modal-footer uk-text-right">
+					<button id="modalcanel" type="button" class="uk-button">取消</button>
+					<button id="modalsubmit" type="button" class="uk-button uk-button-primary">提交</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="modal-spinner" class="uk-modal">
+			<div class="uk-modal-dialog">
+				<div class="uk-modal-spinner"></div>
+			</div>
+		</div>
+
 		<script type="text/javascript" src="tpl/js/require.js" data-main="tpl/js/inquire.js"></script>
 	</body>
 

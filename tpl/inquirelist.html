@@ -7,8 +7,8 @@
 		<link rel="stylesheet" type="text/css" href="tpl/css/uikit.min.css" />
 		<link rel="stylesheet" type="text/css" href="tpl/css/components/notify.min.css" />
 		<style type="text/css">
-			.companyimg {
-				padding: 2px 0;
+			tr {
+				border-bottom: 1px solid #e8e8e8;
 			}
 		</style>
 	</head>
@@ -17,12 +17,12 @@
 		<div id="maintop" class="uk-panel">
 			<div class="uk-margin">
 				<nav class="uk-navbar">
-					<div class="uk-navbar-content uk-navbar-center uk-text-large uk-text-bold"><img class="uk-height-1-1 companyimg" src="img/klbicon.png" /></div>
+					<div class="uk-navbar-content uk-navbar-center uk-text-large uk-text-bold"><img class="uk-height-1-1 companyimg" src="tpl/img/klbicon.png" /></div>
 				</nav>
 			</div>
 		</div>
 
-		<div id="mianframe" class="uk-panel">
+		<div id="mianframe" data="{[$modal]}" class="uk-panel">
 			<div id="inquirycount" class="uk-width-1-1">
 				<div class="uk-panel uk-panel-box">
 					<div class="uk-grid">
@@ -42,17 +42,31 @@
 												<th class="uk-width-1-4 uk-text-center "></th>
 											</tr>
 										</thead>
-										<tbody id="tbodylist ">
-											{[foreach from=$inquiry key=myId item=inquirydetail]}
+										<tbody id="tbodyinquirylist">
+											{[if !empty($inquiry)]} {[foreach from=$inquiry key=myId item=inquirydetail]}
 											<tr>
-												<td class="uk-text-center">{[$inquirydetail.inquirename]}<p class="uk-text-muted">截至日期:{[$inquirydetail.enddate]}</p></td>
-												<td class="uk-text-center"><button class="uk-button uk-width-1-1" data-id = "{[$inquirydetail.inquireid]}">点击查看</button></td>
+												<td class="uk-text-center">{[$inquirydetail.inquirename]}
+													<p class="uk-text-muted">
+														截至日期:{[$inquirydetail.enddate]}</p>
+												</td>
+												<td class="uk-text-center">
+													<button class="uk-button uk-width-1-1" data-id="{[$inquirydetail.inquireid]}">
+														点击查看
+													</button>
+												</td>
 											</tr>
 											{[foreachelse]}
 											<tr>
-												<td class="uk-text-center ">无数据
+												<td class="uk-text-center">无数据</td>
+												<td class="uk-text-center"></td>
 											</tr>
-											{[/foreach]}
+											{[/foreach]} {[else]}
+											<tr>
+												<td class="uk-text-center">无数据</td>
+												<td class="uk-text-center"></td>
+											</tr>
+											{[/if]}
+
 										</tbody>
 									</table>
 								</li>
@@ -60,21 +74,32 @@
 									<table class="uk-table uk-table-striped uk-table-condensed uk-text-nowrap ">
 										<thead>
 											<tr>
-												<th class="uk-width-1-2 uk-text-center "></th>
-												<th class="uk-width-1-2 uk-text-center "></th>
+												<th class="uk-width-3-4 uk-text-center "></th>
+												<th class="uk-width-1-4 uk-text-center "></th>
 											</tr>
 										</thead>
-										<tbody id="tbodylist ">
-											{[foreach from=$inquiryhistory key=myId item=inquiryhistorydetail]}
+										<tbody id="tbodyinquiryhistorylist">
+											{[if !empty($inquiryhistory)]} {[foreach from=$inquiryhistory key=myId item=inquiryhistorydetail]}
 											<tr>
-												<td class="uk-text-center">{[$inquiryhistorydetail.inquirename]}<p class="uk-text-muted">截至日期:{[$inquiryhistorydetail.enddate]}</p></td>
-												<td class="uk-text-center"><button class="uk-button uk-width-1-1" data-id = "{[$inquiryhistorydetail.inquireid]}">点击查看</button></td>
+												<td class="uk-text-center">{[$inquiryhistorydetail.inquirename]}
+													<p class="uk-text-muted">截至日期:{[$inquiryhistorydetail.enddate]}</p>
+												</td>
+												<td class="uk-text-center">
+													<button class="uk-button uk-width-1-1" data-id="{[$inquiryhistorydetail.inquireid]}">点击查看
+													</button>
+												</td>
 											</tr>
 											{[foreachelse]}
 											<tr>
-												<td class="uk-text-center ">无数据
+												<td class="uk-text-center">无数据</td>
+												<td class="uk-text-center"></td>
 											</tr>
-											{[/foreach]}
+											{[/foreach]} {[else]}
+											<tr>
+												<td class="uk-text-center">无数据</td>
+												<td class="uk-text-center"></td>
+											</tr>
+											{[/if]}
 										</tbody>
 									</table>
 								</li>
@@ -93,6 +118,10 @@
 		<script type="text/javascript" src="tpl/js/components/notify.min.js"></script>
 		<script type="text/javascript">
 			$(function() {
+				if($("#mianframe").attr("data")!=""){
+					UIkit.modal.alert("<i class='uk-icon-thumbs-o-up'></i>感谢你的参与!!");
+				}
+
 				$("#mianframe").innerHeight($(window).innerHeight() - $("#maintop").innerHeight() - 10)
 				$(window).resize(function() {
 					$("#mianframe").innerHeight($(window).innerHeight() - $("#maintop").innerHeight() - 10)
@@ -101,7 +130,7 @@
 					if ($("button").attr("data-id") == "") {
 						return;
 					}
-					document.location = baseurl + "?controller=salary&method=index&inquiryid="+$("button").attr("data-id") ;
+					document.location = baseurl + "?controller=salary&method=index&inquiryid=" + $("button").attr("data-id");
 				})
 			});
 		</script>

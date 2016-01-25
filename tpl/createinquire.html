@@ -291,7 +291,8 @@
 					}
 					switch ($(this).attr("data-type")) {
 						case "li":
-							$("#" + $(this).attr("data-id")).remove();;
+							$("#" + $(this).attr("data-id")).remove();
+							;
 							break;
 						case "div":
 							$(this).parent().remove();
@@ -300,14 +301,6 @@
 							break;
 					}
 				}
-				// randow4位数
-				function S4() {
-					return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-				};
-				// 创建GUID
-				function guid() {
-					return (S4() + S4() + S4() + S4() + S4() + S4() + S4() + S4());
-				};
 
 				function resetaukclose(uuid) {
 					$("#" + uuid + " a.uk-close").on("click", function() {

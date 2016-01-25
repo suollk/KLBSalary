@@ -346,8 +346,8 @@
 
 
     UI.modal.labels = {
-        'Ok': 'Ok',
-        'Cancel': 'Cancel'
+        'Ok': '确定',
+        'Cancel': '取消'
     };
 
 

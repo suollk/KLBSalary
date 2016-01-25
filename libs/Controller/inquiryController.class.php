@@ -17,15 +17,19 @@ class inquiryController{
         $creat = M('inquiry');
         $result = $creat -> getinquirydetail("4b588f562fae3833250828e6810492f8");
         //注册变量
+        VIEW::assign(array('inquireid'=>"4b588f562fae3833250828e6810492f8",'datainfo' => $result));
         VIEW::assign(array('datainfo' => $result));
         //生成模版
-        VIEW::display('temp.html');
+        VIEW::display('inquiretest.html');
         exit;
 
-
-
+        if(isset($_GET["inquireid"])){
+            $inquireid=$_GET["inquireid"];
+        }else{
+            echo "参数错误,没有发现问卷标识!";
+            exit;
+        }
         $userid="";
-        $inquireid="";
         if(isset($userid)&&isset($inquireid)){
             $creat = M('inquiry');
             if($creat -> canenterthisinquiry($userid,$inquireid)){
@@ -42,9 +46,9 @@ class inquiryController{
                 //准备调查问卷数据
                 $result = $creat -> getinquirydetail($inquireid);
                 //注册变量
-                VIEW::assign(array('datainfo' => $result));
+                VIEW::assign(array('inquireid'=>$inquireid,'datainfo' => $result));
                 //生成模版
-                VIEW::display('index.html');
+                VIEW::display('inquiretest.html');
                 //显示问卷
             }
         }
@@ -73,6 +77,20 @@ class inquiryController{
             echo $_GET["jsoncallback1"] . '({"result":"参数错误!错误代码10","data":""})';
         }
 
+    }
+
+    //插入用户答案
+    public function insertanswer(){
+        if (isset($_COOKIE["klbweixinuserid"])) {
+            $userid = $_COOKIE['klbweixinuserid'];
+        } else {
+            exit ;
+        }
+
+        $creat = M('inquiry');
+        $result= $creat -> insertuseranswer($userid);
+
+        echo $_GET["jsoncallback1"] . '({"result":"' . $result . '"})';
     }
 
 }
