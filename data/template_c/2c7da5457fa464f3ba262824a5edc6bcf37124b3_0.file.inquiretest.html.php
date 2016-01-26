@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2016-01-25 08:18:41
+<?php /* Smarty version 3.1.27, created on 2016-01-26 09:29:28
          compiled from "tpl\inquiretest.html" */ ?>
 <?php
-/*%%SmartyHeaderCode:1667456a5cc51e9a992_93464582%%*/
+/*%%SmartyHeaderCode:1248756a72e68841492_46521769%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -9,14 +9,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c7da5457fa464f3ba262824a5edc6bcf37124b3' => 
     array (
       0 => 'tpl\\inquiretest.html',
-      1 => 1453706234,
+      1 => 1453796963,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1667456a5cc51e9a992_93464582',
+  'nocache_hash' => '1248756a72e68841492_46521769',
   'variables' => 
   array (
-    'title' => 0,
     'inquireid' => 0,
     'datainfo' => 0,
     'dataArr' => 0,
@@ -25,13 +24,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_56a5cc520eab03_13987777',
+  'unifunc' => 'content_56a72e689b43c1_22135094',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_56a5cc520eab03_13987777')) {
-function content_56a5cc520eab03_13987777 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_56a72e689b43c1_22135094')) {
+function content_56a72e689b43c1_22135094 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '1667456a5cc51e9a992_93464582';
+$_smarty_tpl->properties['nocache_hash'] = '1248756a72e68841492_46521769';
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,8 +43,7 @@ $_smarty_tpl->properties['nocache_hash'] = '1667456a5cc51e9a992_93464582';
 		<meta http-equiv="Cache-control" content="no-cache,no-store,must-revalidate">
 		<meta http-equiv="Cache" content="no-cache,no-store,must-revalidate">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
-</title>
+		<title>问卷</title>
 		<link rel="stylesheet" type="text/css" href="tpl/css/uikit.min.css" />
 		<link rel="stylesheet" type="text/css" href="tpl/css/components/form-advanced.min.css"/>
 		<link rel="stylesheet" type="text/css" href="tpl/css/components/notify.min.css" />

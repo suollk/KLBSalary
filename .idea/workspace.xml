@@ -58,8 +58,8 @@
       <file leaf-file-name="inquirelist.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tpl/inquirelist.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.4920635">
-              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="22" selection-end-column="14" />
+            <state vertical-scroll-proportion="-1.5873016">
+              <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -68,8 +68,8 @@
       <file leaf-file-name="salarysearch.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tpl/salarysearch.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47619048">
-              <caret line="45" column="39" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.3968254">
+              <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
               <folding>
                 <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -120,8 +120,8 @@
       <file leaf-file-name="inquiretest.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tpl/inquiretest.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.034483">
-              <caret line="139" column="93" selection-start-line="139" selection-start-column="76" selection-end-line="139" selection-end-column="93" />
+            <state vertical-scroll-proportion="-7.586207">
+              <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -185,17 +185,17 @@
         <option value="$PROJECT_DIR$/tpl/js/uikit.min.js" />
         <option value="$PROJECT_DIR$/tpl/createinquire.html" />
         <option value="$PROJECT_DIR$/tpl/js/base.js" />
-        <option value="$PROJECT_DIR$/tpl/inquiretest.html" />
         <option value="$PROJECT_DIR$/libs/Controller/indexController.class.php" />
         <option value="$PROJECT_DIR$/libs/Model/salaryModel.class.php" />
         <option value="$PROJECT_DIR$/libs/Controller/inquiryController.class.php" />
         <option value="$PROJECT_DIR$/tpl/js/inquire.js" />
         <option value="$PROJECT_DIR$/libs/Model/inquirylistModel.class.php" />
         <option value="$PROJECT_DIR$/libs/Model/inquiryModel.class.php" />
-        <option value="$PROJECT_DIR$/tpl/inquirelist.html" />
         <option value="$PROJECT_DIR$/tpl/adminindex.html" />
         <option value="$PROJECT_DIR$/libs/Model/adminindexModel.class.php" />
         <option value="$PROJECT_DIR$/libs/Controller/inquirylistController.class.php" />
+        <option value="$PROJECT_DIR$/tpl/inquirelist.html" />
+        <option value="$PROJECT_DIR$/tpl/inquiretest.html" />
         <option value="$PROJECT_DIR$/tpl/salarysearch.html" />
       </list>
     </option>
@@ -516,7 +516,7 @@
     <frame x="-8" y="-8" width="1382" height="753" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30898023" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30898023" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32742155" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -897,14 +897,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tpl/inquiretest.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.034483">
-          <caret line="139" column="93" selection-start-line="139" selection-start-column="76" selection-end-line="139" selection-end-column="93" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tpl/adminindex.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.448276">
@@ -963,16 +955,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tpl/inquirelist.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.4920635">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="22" selection-end-column="14" />
+        <state vertical-scroll-proportion="-1.5873016">
+          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tpl/inquiretest.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.586207">
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tpl/salarysearch.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47619048">
-          <caret line="45" column="39" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.3968254">
+          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
           <folding>
             <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>

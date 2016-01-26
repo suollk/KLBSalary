@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2016-01-26 06:59:05
+<?php /* Smarty version 3.1.27, created on 2016-01-26 09:28:53
          compiled from "tpl\inquirelist.html" */ ?>
 <?php
-/*%%SmartyHeaderCode:154756a70b294c6de4_16473959%%*/
+/*%%SmartyHeaderCode:3173256a72e4522d075_77483477%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -9,11 +9,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '6fb26ebe527a52d51a110f2c5d661e47d3fbe782' => 
     array (
       0 => 'tpl\\inquirelist.html',
-      1 => 1453787942,
+      1 => 1453796916,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '154756a70b294c6de4_16473959',
+  'nocache_hash' => '3173256a72e4522d075_77483477',
   'variables' => 
   array (
     'modal' => 0,
@@ -24,20 +24,20 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_56a70b29531ae6_70823736',
+  'unifunc' => 'content_56a72e452a3411_89204812',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_56a70b29531ae6_70823736')) {
-function content_56a70b29531ae6_70823736 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_56a72e452a3411_89204812')) {
+function content_56a72e452a3411_89204812 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '154756a70b294c6de4_16473959';
+$_smarty_tpl->properties['nocache_hash'] = '3173256a72e4522d075_77483477';
 ?>
 <!DOCTYPE html>
 <html>
 
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>康乐保问卷调查</title>
 		<link rel="stylesheet" type="text/css" href="tpl/css/uikit.min.css" />
 		<link rel="stylesheet" type="text/css" href="tpl/css/components/notify.min.css" />
 		<style type="text/css">
