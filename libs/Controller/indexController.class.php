@@ -68,7 +68,7 @@ class indexController {
 		}
 		setcookie("klbweixinusersessionid", session_id(), time() + 3600 * 24);
 		VIEW::display('index.html');
-	}
+}
 
 }
 ?>

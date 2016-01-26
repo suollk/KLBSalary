@@ -10,23 +10,30 @@
 		<meta http-equiv="Cache" content="no-cache,no-store,must-revalidate">
 		<title>康乐宝工资详情</title>
 		<style type="text/css">
-			tr {
-				border: 1px solid #e8e8e8;
-			}
+			/*tr {*/
+				/*border: 1px solid #e8e8e8;*/
+			/*}*/
 		</style>
 		<link rel="stylesheet" href="tpl/css/uikit.min.css" />
 	</head>
 
 	<body class="uk-width-1-1">
+		<div id="maintop" class="uk-panel">
+			<div class="uk-margin">
+				<nav class="uk-navbar">
+					<div class="uk-navbar-content uk-navbar-center uk-text-large uk-text-bold"><img class="uk-height-1-1 companyimg" src="tpl/img/klbicon.png" /></div>
+				</nav>
+			</div>
+		</div>
 		<div class="uk-button-dropdown uk-width-1-1" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
 			<button class="uk-button uk-width-1-1">
-				<h2 id="buttontitle">{[$year]}年-{[$month]}月<i class="uk-icon-caret-down"></i></h2></button>
+				<h2 id="buttontitle">{[$year]}年{[$month]}月<i class="uk-icon-caret-down"></i></h2></button>
 			<div class="uk-dropdown  uk-dropdown-center uk-width-1-1">
 				<ul class="uk-nav uk-nav-dropdown" id="selectlist">
 					{[foreach from=$monthArr key=myId item=monthitem]}
 					<li>
 						<a href="javascript:;" class="uk-text-center" data-year="{[$monthitem.year]}" data-month="{[$monthitem.month]}">
-				{[$monthitem.year]}年-{[$monthitem.month]}月</a></li>
+				{[$monthitem.year]}年{[$monthitem.month]}月</a></li>
 					<li class="uk-nav-divider"></li>
 					{[foreachelse]}
 					<li><a href="javascript:;">暂无数据</a></li>
@@ -34,15 +41,15 @@
 				</ul>
 			</div>
 		</div>
-		<div class="uk-overflow-container ">
-			<table class="uk-table uk-table-striped uk-table-condensed uk-text-nowrap ">
-				<thead>
+		<div class="uk-overflow-container">
+			<table class="uk-table uk-table-striped uk-table-condensed">
+				<thead class="uk-hidden">
 					<tr>
-						<th class="uk-width-1-2 uk-text-center "></th>
-						<th class="uk-width-1-2 uk-text-center "></th>
+						<th class="uk-width-1-2 uk-text-center"></th>
+						<th class="uk-width-1-2 uk-text-center"></th>
 					</tr>
 				</thead>
-				<tbody id="tbodylist ">
+				<tbody id="tbodylist">
 					{[foreach from=$monthdetailArr key=myId item=monthdetail]}
 					<tr>
 						<td class="uk-text-center {[$monthdetail.isstrong]} {[$monthdetail.islarger]}" style="color:{[$monthdetail.color]};">{[$monthdetail.chinese_name]}
@@ -51,13 +58,13 @@
 					</tr>
 					{[foreachelse]}
 					<tr>
-						<td class="uk-text-center ">无数据
+						<td class="uk-text-center" >无数据
 					</tr>
 					{[/foreach]}
 				</tbody>
 			</table>
 		</div>
-		<script type="text/javascript " src="tpl/js/require.js " data-main="tpl/js/salarysearch"></script>
+		<script type="text/javascript" src="tpl/js/require.js" data-main="tpl/js/salarysearch"></script>
 	</body>
 
 </html>

@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2016-01-25 08:32:34
+<?php /* Smarty version 3.1.27, created on 2016-01-26 06:59:05
          compiled from "tpl\inquirelist.html" */ ?>
 <?php
-/*%%SmartyHeaderCode:1835556a5cf927c2d69_78030046%%*/
+/*%%SmartyHeaderCode:154756a70b294c6de4_16473959%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -9,11 +9,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '6fb26ebe527a52d51a110f2c5d661e47d3fbe782' => 
     array (
       0 => 'tpl\\inquirelist.html',
-      1 => 1453707095,
+      1 => 1453787942,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1835556a5cf927c2d69_78030046',
+  'nocache_hash' => '154756a70b294c6de4_16473959',
   'variables' => 
   array (
     'modal' => 0,
@@ -24,13 +24,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_56a5cf9286bfd1_99499676',
+  'unifunc' => 'content_56a70b29531ae6_70823736',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_56a5cf9286bfd1_99499676')) {
-function content_56a5cf9286bfd1_99499676 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_56a70b29531ae6_70823736')) {
+function content_56a70b29531ae6_70823736 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '1835556a5cf927c2d69_78030046';
+$_smarty_tpl->properties['nocache_hash'] = '154756a70b294c6de4_16473959';
 ?>
 <!DOCTYPE html>
 <html>
@@ -98,7 +98,7 @@ $foreach_inquirydetail_Sav = $_smarty_tpl->tpl_vars['inquirydetail'];
 </p>
 												</td>
 												<td class="uk-text-center">
-													<button class="uk-button uk-width-1-1" data-id="<?php echo $_smarty_tpl->tpl_vars['inquirydetail']->value['inquireid'];?>
+													<button class="inquire uk-button uk-button-primary uk-width-1-1 uk-height-1-1" data-id="<?php echo $_smarty_tpl->tpl_vars['inquirydetail']->value['inquireid'];?>
 ">
 														点击查看
 													</button>
@@ -153,7 +153,7 @@ $foreach_inquiryhistorydetail_Sav = $_smarty_tpl->tpl_vars['inquiryhistorydetail
 </p>
 												</td>
 												<td class="uk-text-center">
-													<button class="uk-button uk-width-1-1" data-id="<?php echo $_smarty_tpl->tpl_vars['inquiryhistorydetail']->value['inquireid'];?>
+													<button class="inquire uk-button uk-button-primary uk-width-1-1 uk-height-1-1" data-id="<?php echo $_smarty_tpl->tpl_vars['inquiryhistorydetail']->value['inquireid'];?>
 ">点击查看
 													</button>
 												</td>
@@ -192,6 +192,9 @@ if (!$_smarty_tpl->tpl_vars['inquiryhistorydetail']->_loop) {
  src="tpl/js/jquery-1.11.3.min.js"><?php echo '</script'; ?>
 >
 		<?php echo '<script'; ?>
+ src="tpl/js/base.js"><?php echo '</script'; ?>
+>
+		<?php echo '<script'; ?>
  type="text/javascript" src="tpl/js/uikit.min.js"><?php echo '</script'; ?>
 >
 		<?php echo '<script'; ?>
@@ -208,11 +211,11 @@ if (!$_smarty_tpl->tpl_vars['inquiryhistorydetail']->_loop) {
 				$(window).resize(function() {
 					$("#mianframe").innerHeight($(window).innerHeight() - $("#maintop").innerHeight() - 10)
 				});
-				$("button").on("click", function() {
-					if ($("button").attr("data-id") == "") {
+				$("button.inquire").on("click", function() {
+					if ($(this).attr("data-id") == "") {
 						return;
 					}
-					document.location = baseurl + "?controller=salary&method=index&inquiryid=" + $("button").attr("data-id");
+					document.location = baseurl + "?controller=inquiry&method=index&inquiryid=" + $("button").attr("data-id");
 				})
 			});
 		<?php echo '</script'; ?>

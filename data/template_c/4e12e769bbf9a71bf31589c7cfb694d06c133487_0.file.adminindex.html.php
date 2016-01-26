@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2016-01-25 02:41:00
+<?php /* Smarty version 3.1.27, created on 2016-01-26 07:00:51
          compiled from "tpl\adminindex.html" */ ?>
 <?php
-/*%%SmartyHeaderCode:313156a57d2ce734d6_39788472%%*/
+/*%%SmartyHeaderCode:460456a70b93a86c04_47499689%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -9,24 +9,24 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4e12e769bbf9a71bf31589c7cfb694d06c133487' => 
     array (
       0 => 'tpl\\adminindex.html',
-      1 => 1453686050,
+      1 => 1453787995,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '313156a57d2ce734d6_39788472',
+  'nocache_hash' => '460456a70b93a86c04_47499689',
   'variables' => 
   array (
     'mydata' => 0,
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_56a57d2cee7f95_78607073',
+  'unifunc' => 'content_56a70b93b3a6d8_93265050',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_56a57d2cee7f95_78607073')) {
-function content_56a57d2cee7f95_78607073 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_56a70b93b3a6d8_93265050')) {
+function content_56a70b93b3a6d8_93265050 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '313156a57d2ce734d6_39788472';
+$_smarty_tpl->properties['nocache_hash'] = '460456a70b93a86c04_47499689';
 ?>
 <!DOCTYPE html>
 <html>
@@ -65,19 +65,19 @@ $_smarty_tpl->properties['nocache_hash'] = '313156a57d2ce734d6_39788472';
 
 							</button>
 						</div>
-						<div class="uk-width-1-1 uk-margin-large-top" id="inquriry" data-num="<?php echo $_smarty_tpl->tpl_vars['mydata']->value['inquire'];?>
-">
-							<button class="uk-button-large uk-width-1-1 uk-border-rounded uk-text-bold uk-text-large">
-								<i class="uk-icon-file-text-o"></i>调查问卷
-								<br/><br/><br/>
-								<?php if ($_smarty_tpl->tpl_vars['mydata']->value['inquire'] == "0") {?>
-								<br/>
-								<?php } else { ?>
-								你当前有<?php echo $_smarty_tpl->tpl_vars['mydata']->value['inquire'];?>
-封调查问卷,请查看!
-								<?php }?>
-							</button>
-						</div>
+						<!--<div class="uk-width-1-1 uk-margin-large-top" id="inquriry" data-num="<?php echo $_smarty_tpl->tpl_vars['mydata']->value['inquire'];?>
+">-->
+							<!--<button class="uk-button-large uk-width-1-1 uk-border-rounded uk-text-bold uk-text-large">-->
+								<!--<i class="uk-icon-file-text-o"></i>调查问卷-->
+								<!--<br/><br/><br/>-->
+								<!--<?php if ($_smarty_tpl->tpl_vars['mydata']->value['inquire'] == "0") {?>-->
+								<!--<br/>-->
+								<!--<?php } else { ?>-->
+								<!--你当前有<?php echo $_smarty_tpl->tpl_vars['mydata']->value['inquire'];?>
+封调查问卷,请查看!-->
+								<!--<?php }?>-->
+							<!--</button>-->
+						<!--</div>-->
 						<div class="uk-width-1-1 uk-margin-large-top" id="btnsubmit">
 							<button class="uk-button-large uk-width-1-1 uk-border-rounded uk-text-bold uk-text-large uk-disabled">
 											<i class="uk-icon-save"></i>考勤消费记录
@@ -126,19 +126,19 @@ $_smarty_tpl->properties['nocache_hash'] = '313156a57d2ce734d6_39788472';
 					document.location = baseurl + "?controller=salary&method=index";
 				})
 
-				$("#inquriry").on("click",function(){
-					if ($("#inquriry").attr("data-num")==0){
-						UIkit.notify({
-							message: "<i class='uk-icon-close'></i><br/>你当前没有调查问卷!!",
-							status: 'warning',
-							timeout: 6000,
-							pos: 'bottom-center'
-						});
-						return;
-					}
-
-					document.location = baseurl + "?controller=inquirylist&method=index";
-				})
+//				$("#inquriry").on("click",function(){
+//					if ($("#inquriry").attr("data-num")==0){
+//						UIkit.notify({
+//							message: "<i class='uk-icon-close'></i><br/>你当前没有调查问卷!!",
+//							status: 'warning',
+//							timeout: 6000,
+//							pos: 'bottom-center'
+//						});
+//						return;
+//					}
+//
+//					document.location = baseurl + "?controller=inquirylist&method=index";
+//				})
 			});
 		<?php echo '</script'; ?>
 >

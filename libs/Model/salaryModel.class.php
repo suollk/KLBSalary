@@ -13,7 +13,7 @@ class salaryModel{
         //获取已经有的月份
         $sql="SELECT year,month FROM ".$this->_dtailtable."
                 WHERE userno=\"".$usercode."\"
-                ORDER BY month DESC";
+                ORDER BY year,month DESC";
         return DB::findAll($sql);
     }
 

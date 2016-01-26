@@ -141,20 +141,16 @@ requirejs(['jquery', 'cookie', 'uikit', 'base', "JQbase64","notice"], function($
 			}else if ($(this).attr("data-type")=="1"){
 				//多选题目生成json
 				var selval="";
+				var questionid = $(this).attr("data-id");
 				var arrChk = $("input[name='" + $(this).attr("data-id") + "']:checked");
 				if (arrChk != null) {
 					$(arrChk).each(function() {
-						if (selval != "") {
-							selval = selval + ",";
-						};
-						selval = selval + this.value;
+						backjson = backjson + '{"id":"'+guid()+'","inquireid":"'+inquiryid
+							+'","questionid":"'+questionid+'","answer":"'
+							+this.value
+							+'","date":"'+Math.round(new Date().getTime() / 1000)+'"},'; this.value;
 					});
 				}
-
-				backjson = backjson + '{"id":"'+guid()+'","inquireid":"'+inquiryid
-					+'","questionid":"'+$(this).attr("data-id")+'","answer":"'
-					+selval
-					+'","date":"'+Math.round(new Date().getTime() / 1000)+'"},';
 			}else if ($(this).attr("data-type")=="2"){
 				//问答题目生成json
 				backjson = backjson + '{"id":"'+guid()+'","inquireid":"'+inquiryid
@@ -170,20 +166,16 @@ requirejs(['jquery', 'cookie', 'uikit', 'base', "JQbase64","notice"], function($
 			}else if ($(this).attr("data-type")=="4"){
 				//图片多选题目生成json
 				var selval="";
+				var questionid = $(this).attr("data-id");
 				var arrChk = $("a[data-check='true'][data-questionid='"+$(this).attr("data-id")+"']");
 				if (arrChk != null) {
 					$(arrChk).each(function() {
-						if (selval != "") {
-							selval = selval + ",";
-						};
-						selval = selval + $(this).attr("data-optionid");
+						backjson = backjson + '{"id":"'+guid()+'","inquireid":"'+inquiryid
+							+'","questionid":"'+questionid+'","answer":"'
+							+$(this).attr("data-optionid")
+							+'","date":"'+Math.round(new Date().getTime() / 1000)+'"},';
 					});
 				}
-
-				backjson = backjson + '{"id":"'+guid()+'","inquireid":"'+inquiryid
-					+'","questionid":"'+$(this).attr("data-id")+'","answer":"'
-					+selval
-					+'","date":"'+Math.round(new Date().getTime() / 1000)+'"},';
 			}
 		});
 

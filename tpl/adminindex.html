@@ -33,17 +33,17 @@
 								{[$mydata.salary]}
 							</button>
 						</div>
-						<div class="uk-width-1-1 uk-margin-large-top" id="inquriry" data-num="{[$mydata.inquire]}">
-							<button class="uk-button-large uk-width-1-1 uk-border-rounded uk-text-bold uk-text-large">
-								<i class="uk-icon-file-text-o"></i>调查问卷
-								<br/><br/><br/>
-								{[if $mydata.inquire=="0"]}
-								<br/>
-								{[else]}
-								你当前有{[$mydata.inquire]}封调查问卷,请查看!
-								{[/if]}
-							</button>
-						</div>
+						<!--<div class="uk-width-1-1 uk-margin-large-top" id="inquriry" data-num="{[$mydata.inquire]}">-->
+							<!--<button class="uk-button-large uk-width-1-1 uk-border-rounded uk-text-bold uk-text-large">-->
+								<!--<i class="uk-icon-file-text-o"></i>调查问卷-->
+								<!--<br/><br/><br/>-->
+								<!--{[if $mydata.inquire=="0"]}-->
+								<!--<br/>-->
+								<!--{[else]}-->
+								<!--你当前有{[$mydata.inquire]}封调查问卷,请查看!-->
+								<!--{[/if]}-->
+							<!--</button>-->
+						<!--</div>-->
 						<div class="uk-width-1-1 uk-margin-large-top" id="btnsubmit">
 							<button class="uk-button-large uk-width-1-1 uk-border-rounded uk-text-bold uk-text-large uk-disabled">
 											<i class="uk-icon-save"></i>考勤消费记录
@@ -83,19 +83,19 @@
 					document.location = baseurl + "?controller=salary&method=index";
 				})
 
-				$("#inquriry").on("click",function(){
-					if ($("#inquriry").attr("data-num")==0){
-						UIkit.notify({
-							message: "<i class='uk-icon-close'></i><br/>你当前没有调查问卷!!",
-							status: 'warning',
-							timeout: 6000,
-							pos: 'bottom-center'
-						});
-						return;
-					}
-
-					document.location = baseurl + "?controller=inquirylist&method=index";
-				})
+//				$("#inquriry").on("click",function(){
+//					if ($("#inquriry").attr("data-num")==0){
+//						UIkit.notify({
+//							message: "<i class='uk-icon-close'></i><br/>你当前没有调查问卷!!",
+//							status: 'warning',
+//							timeout: 6000,
+//							pos: 'bottom-center'
+//						});
+//						return;
+//					}
+//
+//					document.location = baseurl + "?controller=inquirylist&method=index";
+//				})
 			});
 		</script>
 	</body>

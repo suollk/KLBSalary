@@ -57,48 +57,29 @@ class inquiryModel
 
     function getinquirylist($userid)
     {
-        //通过人员id获取人员是否有新的或者在规定时间内未完成的调查问卷  ----- 菜单页需要的函数
-        $sql = 'SELECT '.$this->_publishinquire.'.inquireid,'.$this->_publishinquire.'.inquirename,'.$this->_publishinquire.'.enddate from '.$this->_publishinquire.',jhkj_answer,
-                (select weixin_user.userid,weixin_user.department,
-                weixin_taguser.tagid
-                from weixin_user
-                LEFT JOIN
-                weixin_taguser
-                on  weixin_taguser.userid=weixin_user.userid
-                and weixin_user.userid="'.$userid.'") templimit
-                WHERE '.$this->_answer.'.userid=""
-                AND '.$this->_publishinquire.'.begindate<NOW()
-                AND '.$this->_publishinquire.'.enddate>NOW()
-                AND '.$this->_publishinquire.'.id!=jhkj_answer.inquireid
-                AND (('.$this->_publishinquire.'.valuetype="1" AND templimit.userid='.$this->_publishinquire.'.valueid)
-                OR ('.$this->_publishinquire.'.valuetype="2" AND templimit.department='.$this->_publishinquire.'.valueid)
-                OR ('.$this->_publishinquire.'.valuetype="3" AND templimit.tagid='.$this->_publishinquire.'.valueid))
-                group by '.$this->_publishinquire.'.inquireid order by '.$this->_publishinquire.'.enddate desc';
+//       返回两个SQL查询结果  一个是在规定时间内需要完成的列表  另外一个是规定时间内已经回答完毕的列表
+        $sql='SELECT jhkj_publishinquire.inquireid,jhkj_publishinquire.inquirename,jhkj_publishinquire.enddate from
+              jhkj_publishinquire,(select weixin_user.userid,weixin_user.department, weixin_taguser.tagid
+              from weixin_user LEFT JOIN weixin_taguser on weixin_taguser.userid=weixin_user.userid
+              WHERE weixin_user.userid="'.$userid.'")
+              templimit
+              WHERE TO_DAYS(NOW()) - TO_DAYS(jhkj_publishinquire.begindate)>0
+              and TO_DAYS(NOW()) - TO_DAYS(jhkj_publishinquire.enddate) <0
+              AND ((jhkj_publishinquire.valuetype="1" AND templimit.userid=jhkj_publishinquire.valueid)
+              OR (jhkj_publishinquire.valuetype="2" AND templimit.department=jhkj_publishinquire.valueid)
+              OR (jhkj_publishinquire.valuetype="3" AND templimit.tagid=jhkj_publishinquire.valueid))
+              group by jhkj_publishinquire.inquireid order by jhkj_publishinquire.enddate desc';
 
-        return DB::findAll($sql);
-    }
-//  获取已经回答过的问卷   与上方SQL语句基本相同   为了以后扩展分开
-    function gethistoryinquirylist($userid)
-    {
-        //通过人员id获取人员是否有新的或者在规定时间内未完成的调查问卷  ----- 菜单页需要的函数
-        $sql = 'SELECT jhkj_publishinquire.inquireid,jhkj_publishinquire.inquirename,jhkj_publishinquire.enddate from jhkj_publishinquire,jhkj_answer,
-                (select weixin_user.userid,weixin_user.department,
-                weixin_taguser.tagid
-                from weixin_user
-                LEFT JOIN
-                weixin_taguser
-                on  weixin_taguser.userid=weixin_user.userid
-                and weixin_user.userid="'.$userid.'") templimit
-                WHERE '.$this->_answer.'.userid=""
-                AND jhkj_publishinquire.begindate<NOW()
-                AND jhkj_publishinquire.enddate>NOW()
-                AND jhkj_publishinquire.id=jhkj_answer.inquireid
-                AND ((jhkj_publishinquire.valuetype="1" AND templimit.userid=jhkj_publishinquire.valueid)
-                OR (jhkj_publishinquire.valuetype="2" AND templimit.department=jhkj_publishinquire.valueid)
-                OR (jhkj_publishinquire.valuetype="3" AND templimit.tagid=jhkj_publishinquire.valueid))
-                group by jhkj_publishinquire.inquireid  order by jhkj_publishinquire.enddate desc';
+        $inquireArr = DB::findAll($sql);
 
-        return DB::findAll($sql);
+        $sql='select jhkj_answer.inquireid
+              FROM jhkj_answer
+              WHERE userid="'.$userid.'"
+              GROUP BY jhkj_answer.inquireid';
+
+        $answerArr = DB::findAll($sql);
+
+        return  array("inquire"=>$inquireArr,"answer"=>$answerArr);
     }
 
     function canenterthisinquiry($userid, $inquiryid)
@@ -160,10 +141,11 @@ class inquiryModel
         if (isset($_GET["backjson"])) {
             $answerArr = object_array(json_decode($_GET["backjson"]));
 
-        for ($j = 0; $j < count($answerArr); $j++) {
-                  $inquiryquestionArr[$j]["userid"] = $userid;
-        }
-        $answerid = "";
+            for ($j = 0; $j < count($answerArr["data"]); $j++) {
+               $answerArr["data"][$j]["userid"] = $userid;
+            }
+
+            $answerid = "";
             foreach ($answerArr["data"] as $key => $value) {
                 $answerid = $answerid . DB::insert($this->_answer, $value) . ",";
             }
